@@ -1,0 +1,76 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "VAContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Entity",
+   "ProjectRootNamespace": "VApp",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[Employee]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Family]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Login]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Vaccine]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[sp_empdashboard]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllData]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_insertFamily]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_insertVaccine]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_login]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_search]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_searchby]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": "P0176196\\SQLEXPRESS.VA",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

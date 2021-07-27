@@ -1,0 +1,37 @@
+﻿@model VApp.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@*<form class="row g-3" asp-controller="Login" asp-action="Login">
+    <div class="mb-3">
+        <label for="username" class="form-label">Employee Code</label>
+        <input type="text" class="form-control" id="username" placeholder="P0112867">
+    </div>
+    <br />
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="*****">
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+</form>*@
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+
+<div class="mb-3">
+    <label for="username" class="form-label">Employee Code</label>
+    @Html.TextBoxFor(m => m.Code)
+</div>
+    <br />
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        @Html.TextBoxFor(m => m.Password)
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+}
