@@ -4,7 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Employee Login</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4"> </div>
+        <div class="col-sm-4">
+            <form class="form-horizontal" asp-action="Login">
+                <div class="form-group">
+                    <label class="control-label">EmployeeCode </label>
+                    <input asp-for="Code" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Password </label>
+                    <input asp-for="Password" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Login</button>
+
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
 @*<form class="row g-3" asp-controller="Login" asp-action="Login">
     <div class="mb-3">
         <label for="username" class="form-label">Employee Code</label>
@@ -19,7 +41,7 @@
         <button class="btn btn-primary" type="submit">Login</button>
     </div>
 </form>*@
-@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+@*@using (Html.BeginForm("Login", "Login", FormMethod.Post))
 {
 
 <div class="mb-3">
@@ -34,4 +56,4 @@
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Login</button>
     </div>
-}
+}*@
