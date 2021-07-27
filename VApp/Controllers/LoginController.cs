@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VApp.Entities;
 using VApp.Models;
 
 namespace VApp.Controllers
@@ -16,7 +17,16 @@ namespace VApp.Controllers
         [HttpPost()]
         public IActionResult Login(LoginModel loginData)
         {
+            VaccinationdbContext db = new VaccinationdbContext();
+            var userdata = db.Employees.Where(e => e.Code == loginData.Code && e.Password == loginData.Password);
+           
+           return RedirectToAction("Dashboard","Login");
+            
 
+        }
+        [HttpGet]
+        public IActionResult Dashboard()
+        {
             return View();
         }
         //Tanmayi
