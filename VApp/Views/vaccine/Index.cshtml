@@ -1,79 +1,63 @@
-﻿@model VApp.Models.Vaccine
+﻿
+@model VApp.Models.ListModel
 @{
     ViewData["Title"] = "Vaccine";
 }
 
 
-<h1>Employee List</h1>
+<h2> Vaccinated Employee Details</h2>
 
-<p style="text-align:right;margin-right:20px;">
-    <a class="btn btn-outline-primary" asp-action="AddOrEdit">Create New</a>
-</p>
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VaccineNmae)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DoseOne)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DoseTwo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VaccinationDateOne)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VaccinationDateTwo)
-                </th>
-                <th></th>
-                <th>Edit Action</th>
-                <th>Details Action</th>
-                <th>Delete Action</th>
-            </tr>
-        </thead>
-        @*<tbody>
-            @foreach (var item in model)
+<hr />
+@using (Html.BeginForm(actionName: "insert", controllerName: "VaccinationController", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.VaccineModel.EmpId, htmlAttributes: new { @class = "control-label d-none" })
+                @Html.TextBoxFor(model => model.VaccineModel.EmpId, htmlAttributes: new { @class = "form-control d-none" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-floating mb-3">
+                @Html.LabelFor(model => model.VaccineModel.VaccineNameId, new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.VaccineModel.VaccineNameId, new SelectList(Model.VaccinationNames, "Id", "Name"), new { @class = "form-control" }, new { @id = "floatingInput"} )
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.VaccineModel.DoseTypeId, new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.VaccineModel.DoseTypeId, new SelectList(Model.DoseTypes, "Id", "DoseType1"), new { @class = "form-select" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.VaccineModel.VaccinationDate, new { @class = "control-label" })
 
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EmployeeId)
+                <input type="datetime-local" value="2021-01-01T12:00" />
+                @*@Html.DateTime(expression: model => model.VaccineDate, htmlAttributes: new { @class = "form-control" })*@
+            </div>
+        </div>
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EmployeeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.VaccineNmae)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DoseOne)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DoseTwo)
-                    </td>
-                    <td>
-                    <td class="text-center">
-                        <a asp-action="AddOrEdit" class="btn btn-outline-primary" asp-route-employeeId="@item.EmployeeId">Edit</a>
-                    </td>
-                    <td class="text-center">
-                        <a asp-action="Details" class="btn btn-outline-info" asp-route-employeeId="@item.EmployeeId">Details</a>
-                    </td>
-                    <td class="text-center">
-                        <a asp-action="Delete" class="btn btn-outline-danger" asp-route-employeeId="@item.EmployeeId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>*@
-    </table>
-</div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.VaccineModel.HospitalName, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.VaccineModel.HospitalName, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(expression: model => model.VaccineModel.CertificatePath, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(expression: model => model.VaccineModel.CertificatePath, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <input type="submit" value="save" name="Save" class="btn btn-primary" />
+            </div>
+        </div>
 
+
+
+    </div>
+
+}
