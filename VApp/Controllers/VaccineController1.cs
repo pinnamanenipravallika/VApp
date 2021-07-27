@@ -9,6 +9,7 @@ namespace VApp.Controllers
 {
     public class VaccineController1
     {
+        
         public class VaccineController : Controller
         {
             public IActionResult Index()
