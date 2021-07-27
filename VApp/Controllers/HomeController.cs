@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using VApp.Entity;
+
 using VApp.Models;
 
 namespace VApp.Controllers
@@ -21,7 +21,7 @@ namespace VApp.Controllers
 
         public IActionResult Index()
         {
-            var db = new VAContext();
+           
 
             return View();
         }

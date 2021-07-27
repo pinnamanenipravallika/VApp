@@ -3,12 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VApp.Entity
+namespace VApp.Entities
 {
-    public partial class sp_loginResult
+    public partial class sp_insertVaccinationDetailsResult
     {
-        public string EmployeeID { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
     }
 }

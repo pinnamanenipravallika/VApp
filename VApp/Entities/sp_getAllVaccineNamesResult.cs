@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VApp.Entity
+namespace VApp.Entities
 {
-    public partial class sp_insertVaccineResult
+    public partial class sp_getAllVaccineNamesResult
     {
+        public int id { get; set; }
+        public string name { get; set; }
     }
 }

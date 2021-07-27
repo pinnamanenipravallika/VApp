@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace VApp.Entity
+namespace VApp.Entities
 {
-    [Keyless]
-    [Table("Login")]
-    public partial class Login
+    public partial class DoseType
     {
-        public string EmployeeID { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
+        [Column("doseType")]
+        public int DoseType1 { get; set; }
     }
 }

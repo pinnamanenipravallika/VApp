@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VApp.Entity
+namespace VApp.Entities
 {
     public static class DbContextExtensions
     {

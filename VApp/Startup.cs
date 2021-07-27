@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VApp.Entity;
+using VApp.Entities;
 
 namespace VApp
 {
@@ -25,8 +25,7 @@ namespace VApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<VAContext>(options => options.UseSqlServer(Configuration
-                .GetConnectionString("VADatabase")));
+            services.AddDbContext<VaccinationdbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("VADatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

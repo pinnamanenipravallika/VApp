@@ -1,48 +1,132 @@
 ﻿{
    "CodeGenerationMode": 0,
-   "ContextClassName": "VAContext",
+   "ContextClassName": "VaccinationdbContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": false,
+   "IncludeConnectionString": true,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Entity",
+   "OutputPath": "Entities",
    "ProjectRootNamespace": "VApp",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[Employee]",
+         "Name": "[dbo].[AffectedEmployee]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Family]",
+         "Name": "[dbo].[AffectedFamilyDetails]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Login]",
+         "Name": "[dbo].[Countries]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Vaccine]",
+         "Name": "[dbo].[Departments]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[sp_empdashboard]",
+         "Name": "[dbo].[Designations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Districts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DoseTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Employees]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RelationshipTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RoleTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[States]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Taluks]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VaccinationDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VaccinationNames]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[sp_getAffectedEmployee]",
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[sp_getAllData]",
+         "Name": "[dbo].[sp_getAffectedFamilydetails]",
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[sp_insertFamily]",
+         "Name": "[dbo].[sp_getAllAffectedEmployee]",
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[sp_insertVaccine]",
+         "Name": "[dbo].[sp_getAllCountries]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllDistricts]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllDoseTypes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllStates]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllTaluks]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllVaccinationDetails]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllVaccinationDetails2]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getAllVaccineNames]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getReationshipTypes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_insertAffectedEmployee]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_insertAffectedFamilyDetails]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_insertVaccinationDetails]",
          "ObjectType": 1
       },
       {
@@ -50,17 +134,13 @@
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[sp_search]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[sp_searchby]",
+         "Name": "[dbo].[sp_vaccinationDetails]",
          "ObjectType": 1
       }
    ],
-   "UiHint": "P0176196\\SQLEXPRESS.VA",
+   "UiHint": "P0176197\\SQLEXPRESS.VaccinationDB",
    "UseBoolPropertiesWithoutDefaultSql": false,
-   "UseDatabaseNames": true,
+   "UseDatabaseNames": false,
    "UseDbContextSplitting": false,
    "UseFluentApiOnly": false,
    "UseHandleBars": false,

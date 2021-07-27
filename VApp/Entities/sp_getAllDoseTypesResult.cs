@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VApp.Entity
+namespace VApp.Entities
 {
-    public partial class sp_insertFamilyResult
+    public partial class sp_getAllDoseTypesResult
     {
+        public int id { get; set; }
+        public int doseType { get; set; }
     }
 }
