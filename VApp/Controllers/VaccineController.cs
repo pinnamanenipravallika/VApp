@@ -25,17 +25,24 @@ namespace VApp.Controllers
                 listModel.VaccinationNames = vaccineNames;
 
             return View(listModel);
+
             }
             [HttpPost()]
             public IActionResult Insert(ListModel vaccineData)
             {
-                //var insertData = new VaccinationDetail();
-                //insertData.EmpId = vaccineData.EmpId;
+            var insertData = new VaccinationDetail();
+            insertData.EmpId = vaccineData.VaccineModel.EmpId;
+            insertData.VccineNameId = vaccineData.VaccineModel.VaccineNameId;
+            insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
+            insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;
+            insertData.HospitalName = vaccineData.VaccineModel.HospitalName;
+            insertData.CertificatePath = vaccineData.VaccineModel.CertificatePath;
 
-                //var db = new VaccinationdbContext();
-                //db.VaccinationDetails.Add(insertData);
-                //db.SaveChanges();
-                return RedirectToAction("Index", "Vaccine");
+
+            var db = new VaccinationdbContext();
+            db.VaccinationDetails.Add(insertData);
+            db.SaveChanges();
+            return RedirectToAction("Index", "vaccine");
             }
         }
     }
