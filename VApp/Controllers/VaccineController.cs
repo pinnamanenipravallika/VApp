@@ -1,28 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using VApp.Entities;
 using VApp.Models;
 
 namespace VApp.Controllers
 {
-        public class VaccineController : Controller
+    public class VaccineController : Controller
+    {
+        private readonly VaccinationdbContext _db;
+
+        public VaccineController(VaccinationdbContext db)
         {
-            public IActionResult Index()
-            {
-                var db = new VaccinationdbContext();
-                var listModel = new ListModel();
+            _db = db;
+        }
+        public IActionResult Index()
+        {
+            var listModel = new ListModel();
 
-                var doseTypes = db.DoseTypes.ToList();
-                ViewBag.DoseTypes = doseTypes;
+            var doseTypes = _db.DoseTypes.ToList();
+            ViewBag.DoseTypes = doseTypes;
 
-                var vaccineNames = db.VaccinationNames.ToList();
-                ViewBag.VaccinationNames = vaccineNames;
+            var vaccineNames = _db.VaccinationNames.ToList();
+            ViewBag.VaccinationNames = vaccineNames;
 
-                listModel.DoseTypes = doseTypes;
-                listModel.VaccinationNames = vaccineNames;
+            listModel.DoseTypes = doseTypes;
+            listModel.VaccinationNames = vaccineNames;
 
             return View(listModel);
 
