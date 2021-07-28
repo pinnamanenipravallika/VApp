@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using VApp.Entities;
 using VApp.Models;
 
@@ -38,12 +41,42 @@ namespace VApp.Controllers
             insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
             insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;
             insertData.HospitalName = vaccineData.VaccineModel.HospitalName;
-            insertData.CertificatePath = vaccineData.VaccineModel.CertificatePath;
+            
+          
+            if (vaccineData.File != null)
+            {
+                if (vaccineData.File.Length > 0)
+                {
+                    //Getting FileName
+                    var fileName = Path.GetFileName(vaccineData.File.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    var newFileName = String.Concat(myUniqueFileName, fileExtension);
+
+                    insertData.CertificatePath = newFileName;
+                   
+                    // Combines two strings into a path.
+                    var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")).Root + $@"{newFileName}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        vaccineData.File.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+            }
+            
 
 
-            var db = new VaccinationdbContext();
-            db.VaccinationDetails.Add(insertData);
-            db.SaveChanges();
+
+            _db.VaccinationDetails.Add(insertData);
+            _db.SaveChanges();
             return RedirectToAction("Index", "vaccine");
             }
         }

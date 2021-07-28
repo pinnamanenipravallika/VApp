@@ -10,7 +10,7 @@
 <h2> Vaccinated Employee Details</h2>
 
 <hr />
-@using (Html.BeginForm(actionName: "Insert", controllerName: "Vaccine", FormMethod.Post))
+@using (Html.BeginForm(actionName: "Insert", controllerName: "Vaccine", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container">
         <div class="row">
@@ -48,8 +48,13 @@
         </div>
         <div class="row">
             <div class="form-group">
+
+
                 @Html.LabelFor(expression: model => model.VaccineModel.CertificatePath, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(expression: model => model.VaccineModel.CertificatePath, htmlAttributes: new { @class = "form-control" })
+                @Html.TextBoxFor(expression: model => model.File, htmlAttributes: new { type = "file" })
+                
+
+
             </div>
         </div>
         <div class="row">

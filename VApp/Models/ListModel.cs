@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,5 +12,7 @@ namespace VApp.Models
         public List<DoseType> DoseTypes { get; set; }
         public List<VaccinationName> VaccinationNames { get; set; }
         public VaccineModel VaccineModel { get; set; }
+
+        public IFormFile File { get; set; }
     }
 }
