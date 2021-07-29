@@ -34,8 +34,9 @@
         <div class="row">
             <div class="form-group">
                 @Html.LabelFor(model => model.VaccineModel.VaccinationDate, new { @class = "control-label" })
+               
+                <input type="date"  asp-for="VaccineModel.VaccinationDate" />
 
-                <input type="datetime-local" value="2021-01-01T12:00" />
                 @*@Html.DateTime(expression: model => model.VaccineDate, htmlAttributes: new { @class = "form-control" })*@
             </div>
         </div>
@@ -43,7 +44,7 @@
         <div class="row">
             <div class="form-group">
                 @Html.LabelFor(model => model.VaccineModel.HospitalName, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.VaccineModel.HospitalName, htmlAttributes: new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.VaccineModel.HospitalName, htmlAttributes: new { @class = "form-control disabled" })
             </div>
         </div>
         <div class="row">
@@ -52,7 +53,8 @@
 
                 @Html.LabelFor(expression: model => model.VaccineModel.CertificatePath, htmlAttributes: new { @class = "control-label" })
                 @Html.TextBoxFor(expression: model => model.File, htmlAttributes: new { type = "file" })
-                
+                @Html.ValidationMessageFor(model => model.File, "", new { @class = "error" })
+
 
 
             </div>

@@ -1,8 +1,92 @@
 ﻿
+@model VApp.Models.EmployeeDataModel
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
 }
 
-<h1>Dashboard</h1>
+
+
+<h5> Welcome! @Model.FirstName </h5>
+<div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-6">
+        <form class="form-floating">
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control d-none" id="id" asp-for="ID" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="floatingCode">Employee Code</label>
+                <input type="text" class="form-control" id="floatingCode" asp-for="Code" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" asp-for="FirstName" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" asp-for="LastName" disabled>
+
+            </div>
+
+            <div class="form-floating mb-3">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com" asp-for="Email" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="joiningdate">Joining Date</label>
+                <input type="text" class="form-control" id="joiningdate" asp-for="JoiningDate" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="mobile">Mobile No</label>
+                <input type="text" class="form-control" id="mobile" asp-for="Mobile" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="address">Address</label>
+                <textarea class="form-control" id="address" style="height: 100px" asp-for="Address" disabled></textarea>
+
+            </div>
+
+            <div class="form-floating">
+                <label for="vname">Vaccine Name</label>
+                <select class="form-select" id="vname" disabled>
+                    <option selected>@Model.EmpVaccinationData[0].VccineName</option>
+                </select>
+            </div>
+            <div class="form-floating mb-3">
+                <label for="vaccinatedgdate">Vaccinated Date</label>
+                <input type="text" class="form-control" id="vaccinateddate" asp-for="EmpVaccinationData[0].VaccinationDate" disabled>
+
+            </div>
+            <div class="form-floating">
+                <label for="dosetype">Dose No. </label>
+                <select class="form-select" id="dosetype" disabled>
+                    <option selected>@Model.EmpVaccinationData[0].DoseType</option>
+                </select>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="hname">Hospital Name</label>
+                <input type="text" class="form-control" id="hname" asp-for="EmpVaccinationData[0].HospitalName" disabled>
+
+            </div>
+            <div class="form-floating mb-3">
+                <label for="certificate">Certificate</label>
+                <input type="text" class="form-control" id="certificate" asp-for="EmpVaccinationData[0].CertificatePath" disabled>
+            </div>
+        </form>
+    </div>
+    <div class="col-4">
+
+    </div>
+</div>
 

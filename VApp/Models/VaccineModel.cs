@@ -12,7 +12,7 @@ namespace VApp.Models
     {
 
         [Required(ErrorMessage = "Please select file.")]
-        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.pdf)$", ErrorMessage = "Only pdf files allowed.")]
+        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.doc|.docx|.pdf)$", ErrorMessage = "Only Image files allowed.")]
         public int EmpId { get; set; }
 
         public int VaccineNameId { get; set; }

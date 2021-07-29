@@ -36,15 +36,16 @@ namespace VApp.Controllers
             public IActionResult Insert(ListModel vaccineData)
             {
             var insertData = new VaccinationDetail();
-            insertData.EmpId = vaccineData.VaccineModel.EmpId;
-            insertData.VccineNameId = vaccineData.VaccineModel.VaccineNameId;
-            insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
-            insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;
-            insertData.HospitalName = vaccineData.VaccineModel.HospitalName;
-            
+                        
           
-            if (vaccineData.File != null)
+            if (vaccineData.File != null && vaccineData.VaccineModel.EmpId != null && vaccineData.VaccineModel.VaccineNameId != null && vaccineData.VaccineModel.DoseTypeId != null && vaccineData.VaccineModel.VaccinationDate != null && vaccineData.VaccineModel.HospitalName != null)
             {
+                insertData.EmpId = vaccineData.VaccineModel.EmpId;
+                insertData.VccineNameId = vaccineData.VaccineModel.VaccineNameId;
+                insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
+                insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;
+                insertData.HospitalName = vaccineData.VaccineModel.HospitalName;
+
                 if (vaccineData.File.Length > 0)
                 {
                     //Getting FileName
@@ -56,27 +57,37 @@ namespace VApp.Controllers
                     //Getting file Extension
                     var fileExtension = Path.GetExtension(fileName);
 
-                    // concatenating  FileName + FileExtension
-                    var newFileName = String.Concat(myUniqueFileName, fileExtension);
-
-                    insertData.CertificatePath = newFileName;
-                   
-                    // Combines two strings into a path.
-                    var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")).Root + $@"{newFileName}";
-
-                    using (FileStream fs = System.IO.File.Create(filepath))
+                    if(fileExtension == ".pdf")
                     {
-                        vaccineData.File.CopyTo(fs);
-                        fs.Flush();
+                    // concatenating  FileName + FileExtension
+                        var newFileName = String.Concat(myUniqueFileName, fileExtension);
+
+                        insertData.CertificatePath = newFileName;
+                   
+                        // Combines two strings into a path.
+                        var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")).Root + $@"{newFileName}";
+
+                        using (FileStream fs = System.IO.File.Create(filepath))
+                        {
+                            vaccineData.File.CopyTo(fs);
+                            fs.Flush();
+                        }
+
+                        _db.VaccinationDetails.Add(insertData);
+                        _db.SaveChanges();
+                        return RedirectToAction("Dashboard", "Login");
+
                     }
                 }
+
             }
-            
+            else
+            {
+                ViewData["Message"] = "Please Fill all details";
+
+            }
 
 
-
-            _db.VaccinationDetails.Add(insertData);
-            _db.SaveChanges();
             return RedirectToAction("Index", "vaccine");
             }
         }
