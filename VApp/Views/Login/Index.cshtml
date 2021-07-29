@@ -4,26 +4,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Employee Login</h1>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-4"> </div>
         <div class="col-sm-4">
+            
+                    <h1>Login</h1>
+                
+            
             <div asp-validation-summary="All"></div>
             <form class="form-horizontal" asp-action="Login">
                 <div class="form-group">
-                    <label class="control-label">EmployeeCode </label>
-                    <input asp-for="Code" class="form-control" type="text"  required />
+                    <label class="control-label">Employee Code </label>
+                    <input asp-for="Code" class="form-control" type="text" required />
                     <span asp-validation-for="Code" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Password </label>
-<<<<<<< HEAD
-                    <input asp-for="Password" class="form-control" type="password" />
-=======
                     <input asp-for="Password" class="form-control" type="password" required />
                     <span asp-validation-for="Password" class="text-danger"></span>
->>>>>>> a8986e02faa66a4685c4b1de7c964a9b0dbd99eb
+
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Login</button>
