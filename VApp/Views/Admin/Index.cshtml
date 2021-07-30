@@ -1,0 +1,103 @@
+﻿@model IEnumerable<VApp.Entities.Employee>
+
+@{
+    ViewData["Title"] = "Admin";
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Index</h1>
+
+
+
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Enter employee Name or Email" value="@ViewData["GetEmployeeDetails"]" name="Empsearch" style="width:500px;"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+        <a asp-action="Index"> Get All Employees </a>
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JoiningDate)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.VccineName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoseType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VaccinationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HospitalName)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoiningDate)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.VccineName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoseType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VaccinationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HospitalName)
+            </td>*@
+            @*<td>
+                <a asp-action="Edit" asp-route-id="@item.Mobile">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Role">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StateId">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>
