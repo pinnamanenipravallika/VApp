@@ -1,8 +1,30 @@
-﻿
+﻿@model VApp.Models.AffectedModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Affected";
+
     Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
 }
 
-<h1>Index</h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div asp-validation-summary="All"></div>
+            <form class="form-horizontal" asp-action="InsertAffectedEmployee">
+                <input asp-for="EmpId" type="hidden" value="@ViewBag.EmpId" />
+                <div class="form-group">
+                    <label class="control-label">Is Recoverded : </label>
+                    <input asp-for="IsRecoveryed" type="radio" value="true" /> Yes
+                    <input asp-for="IsRecoveryed" type="radio" value="false" checked /> No
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Recovery Duration: </label>
+                    <input asp-for="RecoveryDuration" type="text" required />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
