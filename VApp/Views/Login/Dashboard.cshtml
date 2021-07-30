@@ -9,84 +9,38 @@
 
 <h5> Welcome! @Model.FirstName </h5>
 <div class="row">
-    <div class="col-2">
-
-    </div>
-    <div class="col-6">
-        <form class="form-floating">
-
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control d-none" id="id" asp-for="ID" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="floatingCode">Employee Code</label>
-                <input type="text" class="form-control" id="floatingCode" asp-for="Code" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" asp-for="FirstName" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" asp-for="LastName" disabled>
-
-            </div>
-
-            <div class="form-floating mb-3">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="name@example.com" asp-for="Email" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="joiningdate">Joining Date</label>
-                <input type="text" class="form-control" id="joiningdate" asp-for="JoiningDate" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="mobile">Mobile No</label>
-                <input type="text" class="form-control" id="mobile" asp-for="Mobile" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="address">Address</label>
-                <textarea class="form-control" id="address" style="height: 100px" asp-for="Address" disabled></textarea>
-
-            </div>
-
-            <div class="form-floating">
-                <label for="vname">Vaccine Name</label>
-                <select class="form-select" id="vname" disabled>
-                    <option selected>@Model.EmpVaccinationData[0].VccineName</option>
-                </select>
-            </div>
-            <div class="form-floating mb-3">
-                <label for="vaccinatedgdate">Vaccinated Date</label>
-                <input type="text" class="form-control" id="vaccinateddate" asp-for="EmpVaccinationData[0].VaccinationDate" disabled>
-
-            </div>
-            <div class="form-floating">
-                <label for="dosetype">Dose No. </label>
-                <select class="form-select" id="dosetype" disabled>
-                    <option selected>@Model.EmpVaccinationData[0].DoseType</option>
-                </select>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="hname">Hospital Name</label>
-                <input type="text" class="form-control" id="hname" asp-for="EmpVaccinationData[0].HospitalName" disabled>
-
-            </div>
-            <div class="form-floating mb-3">
-                <label for="certificate">Certificate</label>
-                <input type="text" class="form-control" id="certificate" asp-for="EmpVaccinationData[0].CertificatePath" disabled>
-            </div>
-        </form>
-    </div>
     <div class="col-4">
 
     </div>
+    <div class="col-2">
+        <label for="floatingCode" style="font-weight:bolder" class="bold">Employee Code:</label><br />
+        <label for="firstName" style="font-weight:bolder" class="bold">First Name:</label><br />
+        <label for="lastName" style="font-weight:bolder" class="bold">Last Name:</label><br />
+        <label for="email" style="font-weight:bolder" class="bold">Email address:</label><br />
+        <label for="joiningdate" style="font-weight:bolder" class="bold">Joining Date:</label><br />
+        <label for="mobile" style="font-weight:bolder" class="bold">Mobile No:</label><br />
+        <label for="address" style="font-weight:bolder" class="bold">Address:</label><br />
+        <label for="vname" style="font-weight:bolder" class="bold">Vaccine Name:</label><br />
+        <label for="vaccinatedgdate" style="font-weight:bolder" class="bold">Vaccinated Date:</label><br />
+        <label for="dosetype" style="font-weight:bolder" class="bold">Dose No: </label><br />
+        <label for="hname" style="font-weight:bolder" class="bold">Hospital Name:</label><br />
+        <label for="certificate" style="font-weight:bolder" class="bold">Certificate:</label>
+
+    </div>
+    <div class="col-6">
+        <label id="floatingCode"> @Model.Code</label><br />
+        <label id="firstName"> @Model.FirstName</label><br />
+        <label id="lastName" >@Model.LastName</label><br />
+        <label id="email">@Model.Email</label><br />
+        <label id="joiningdate" >@Model.JoiningDate</label><br />
+        <label id="mobile" >@Model.Mobile</label><br />
+        <label id="address">@Model.Address</label><br />
+        <label id="vname">@Model.EmpVaccinationData[0].VccineName</label><br />
+        <label id="vaccinateddate">@Model.EmpVaccinationData[0].VaccinationDate</label><br />
+        <label id="dosetype"> @Model.EmpVaccinationData[0].DoseType</label><br />
+        <label id="hname">@Model.EmpVaccinationData[0].HospitalName</label><br />
+        <label id="certificate">@Model.EmpVaccinationData[0].CertificatePath</label>
+    </div>
+   
 </div>
 
