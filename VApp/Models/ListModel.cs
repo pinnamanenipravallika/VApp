@@ -9,6 +9,7 @@ namespace VApp.Models
 {
     public class ListModel
     {
+        public int EmpId { get; set; }
         public List<DoseType> DoseTypes { get; set; }
         public List<VaccinationName> VaccinationNames { get; set; }
         public VaccineModel VaccineModel { get; set; }

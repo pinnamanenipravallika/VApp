@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VApp.Entities;
+using Microsoft.AspNetCore.Session;
 
 namespace VApp
 {
@@ -20,13 +21,20 @@ namespace VApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddControllersWithViews();
             services.AddDbContext<VaccinationdbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("VADatabase")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSession();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -35,6 +43,9 @@ namespace VApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+           
+            
+
             app.UseStaticFiles();
 
             app.UseRouting();

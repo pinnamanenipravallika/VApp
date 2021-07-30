@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 using VApp.Entities;
 using VApp.Models;
 
@@ -18,6 +21,11 @@ namespace VApp.Controllers
         }
         public IActionResult Index()
         {
+
+            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+
+          
+
             var listModel = new ListModel();
 
             var doseTypes = _db.DoseTypes.ToList();
@@ -28,6 +36,8 @@ namespace VApp.Controllers
 
             listModel.DoseTypes = doseTypes;
             listModel.VaccinationNames = vaccineNames;
+            listModel.EmpId = empdata.ID;
+            
 
             return View(listModel);
 
