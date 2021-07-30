@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace VApp.Models
+﻿namespace VApp.Models
 {
     public class AffectedFamilyModel
     {
@@ -9,11 +7,5 @@ namespace VApp.Models
         public bool IsRecoveryed { get; set; }
         public int? RecoveryDuration { get; set; }
         public int? RelationshipId { get; set; }
-        public List<RelationshipTypeModel> RelationshipTypes { get; set; } = new List<RelationshipTypeModel>();
-    }
-    public class RelationshipTypeModel
-    {
-        public int Id { get; set; }
-        public string TypeName { get; set; }
     }
 }

@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using VApp.Entities;
 using VApp.Models;
 
@@ -16,36 +19,54 @@ namespace VApp.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.EmpId = 1589;
-            return View();
+            AffectedModel model = new AffectedModel();
+
+            var relationships = _db.RelationshipTypes.ToList();
+
+            var listRelations = new List<RelationshipTypeModel>();
+            foreach (var item in relationships)
+            {
+                var relation = new RelationshipTypeModel()
+                {
+                    Id = item.Id,
+                    TypeName = item.TypeName.ToUpper()
+                };
+                listRelations.Add(relation);
+            }
+            model.RelationshipTypes = listRelations;
+
+            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+            ViewBag.EmpId = empdata.ID;
+
+            return View(model);
         }
         [HttpPost]
-        public IActionResult InsertAffectedEmployee(AffectedModel affectedModel)
+        public IActionResult Insert(AffectedModel affectedModel)
         {
-            var data = new AffectedEmployee()
-            {
-                EmpId = affectedModel.EmpId,
-                IsRecoveryed = affectedModel.IsRecoveryed,
-                RecoveryDuration = affectedModel.RecoveryDuration
-            };
-            var dataExist = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == affectedModel.EmpId);
-            if (dataExist == null)
-            {
-                _db.AffectedEmployees.Add(data);
-                _db.SaveChanges();
-            }
-            else
-            {
-                dataExist.IsRecoveryed = affectedModel.IsRecoveryed;
-                dataExist.RecoveryDuration = affectedModel.RecoveryDuration;
-                _db.SaveChanges();
-            }
-            return RedirectToAction("Dashboard", "Login");
-        }
+            //var data = new AffectedEmployee()
+            //{
+            //    EmpId = affectedModel.EmpId,
+            //    IsRecoveryed = affectedModel.IsRecoveryed,
+            //    RecoveryDuration = affectedModel.RecoveryDuration,
+            //    IsFamilyAffected = affectedModel.IsFamilyAffected
+            //};
+            //var dataExist = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == affectedModel.EmpId);
+            //if (dataExist == null)
+            //{
+            //    _db.AffectedEmployees.Add(data);
+            //    _db.SaveChanges();
+            //}
+            //else
+            //{
+            //    dataExist.IsRecoveryed = affectedModel.IsRecoveryed;
+            //    dataExist.RecoveryDuration = affectedModel.RecoveryDuration;
+            //    dataExist.IsFamilyAffected = affectedModel.IsFamilyAffected;
+            //    _db.SaveChanges();
+            //}
 
-        public IActionResult AffectedFamily()
-        {
-            return View();
+
+
+            return RedirectToAction("Dashboard", "Login");
         }
     }
 }

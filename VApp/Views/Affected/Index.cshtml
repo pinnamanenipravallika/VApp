@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col">
             <div asp-validation-summary="All"></div>
-            <form class="form-horizontal" asp-action="InsertAffectedEmployee">
+            <form class="form-horizontal" asp-action="Insert" method="post">
                 <input asp-for="EmpId" type="hidden" value="@ViewBag.EmpId" />
                 <div class="form-group">
                     <label class="control-label">Is Recoverded : </label>
@@ -22,9 +22,124 @@
                     <input asp-for="RecoveryDuration" type="text" required />
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <label class="control-label">Is Recoverded : </label>
+                    <input asp-for="IsFamilyAffected" type="radio" value="true" /> Yes
+                    <input asp-for="IsFamilyAffected" type="radio" value="false" checked /> No
+                </div>
+                <div>
+                    <div class="form-group">
+                        <div class="float-left m-3">
+                            <label>Member Name:</label>
+                            <br />
+                            <input asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
+                        </div>
+                        <div class="float-left m-3">
+                            <label>Is Recoverded : </label>
+                            <br />
+                            <input asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="true" /> Yes
+                            <input class="mx-2" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="false" checked /> No
+                        </div>
+                        <div class="float-left m-3">
+                            <label>Recovery Duration: </label>
+                            <br />
+                            <input asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required />
+                        </div>
+                        <div class="float-left m-3">
+                            <label>Relationship : </label>
+                            <br />
+                            @Html.DropDownListFor(m => m.AffectedFamilyModels[0].RelationshipId, new SelectList(Model.RelationshipTypes, "Id", "TypeName"), new { @class = "p-1" })
+                        </div>
+                        <div class="float-left m-3">
+                            <button id="remove" class="btn btn-danger mt-4" onclick="RemoveFamily(this)">X</button>
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="FamilyDiv"> </div>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-primary float-left" type="submit" value="Submit" />
+                    <input class="btn btn-success float-right" id="addMore" type="button" value="AddMore" />
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var i = 1;
+
+            $("#addMore").click(function () {
+                var divFormGroup = $("<div/>").attr("class", "form-group");
+                var divMemberName = $("<div/>").attr("class", "float-left mt-3 mx-3");
+                var divIsRecovered = $("<div/>").attr("class", "float-left mt-3 mx-3");
+                var divDuration = $("<div/>").attr("class", "float-left mt-3 mx-3");
+                var divRealtionship = $("<div/>").attr("class", "float-left mt-3 mx-3");
+                var divRemoveButton = $("<div/>").attr("class", "float-left mt-3 mx-3");
+                var value = "";
+
+                var memberName = $("<input/>").attr("type", "textbox")
+                    .attr("name", "AffectedFamilyModels[" + i + "].MemberName");
+                divMemberName.append(memberName);
+
+                var isRecoveredYes = $("<input>").attr("type", "radio")
+                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
+                var labelYes = $("<label> Yes</label>").attr("class", "mx-2");
+                var labelNo = $("<label> No</label>");
+                var isRecoveredNo = $("<input/>").attr("type", "radio")
+                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "mx-2");
+                divIsRecovered.append(isRecoveredYes);
+                divIsRecovered.append(labelYes);
+                divIsRecovered.append(isRecoveredNo);
+                divIsRecovered.append(labelNo);
+
+                var recoveryDuration = $("<input/>").attr("type", "number")
+                    .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration");
+                divDuration.append(recoveryDuration);
+
+                var relationshipDropDrown = $("<select/>").attr("class", "p-1")
+                    .attr("name", "AffectedFamilyModels[" + i + "].RelationshipId");
+                var option1 = $("<option>FATHER</option>").attr("value", "1");
+                var option2 = $("<option>MOTHER</option>").attr("value", "2");
+                var option3 = $("<option>SISTER</option>").attr("value", "3");
+                var option4 = $("<option>BROTHER</option>").attr("value", "4");
+                var option5 = $("<option>WIFE</option>").attr("value", "5");
+                var option6 = $("<option>HUSBAND</option>").attr("value", "6");
+                relationshipDropDrown.append(option1);
+                relationshipDropDrown.append(option2);
+                relationshipDropDrown.append(option3);
+                relationshipDropDrown.append(option4);
+                relationshipDropDrown.append(option5);
+                relationshipDropDrown.append(option6);
+                divRealtionship.append(relationshipDropDrown);
+
+                var removeButton = $("<input/>").attr("type", "button")
+                    .attr("value", "X").attr("class", "btn btn-danger")
+                    .attr("onclick", "RemoveFamily(this)");
+
+                var lineBreak = $("<br/>");
+                var clearFix = $("<div/>").attr("class", "clearfix m-0");
+
+                divRemoveButton.append(removeButton);
+
+
+                divFormGroup.append(divMemberName);
+                divFormGroup.append(divIsRecovered);
+                divFormGroup.append(divDuration);
+                divFormGroup.append(divRealtionship);
+                divFormGroup.append(divRemoveButton);
+                divFormGroup.append(clearFix);
+
+
+                $("#FamilyDiv").append(divFormGroup).append(lineBreak);
+                i++;
+            });
+        });
+        function RemoveFamily(button) {
+            $(button).parent().parent().remove();
+        }
+    </script>
+}
