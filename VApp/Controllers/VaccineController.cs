@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Web;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +16,7 @@ namespace VApp.Controllers
     public class VaccineController : Controller
     {
         private readonly VaccinationdbContext _db;
-
+        
         public VaccineController(VaccinationdbContext db)
         {
             _db = db;
@@ -88,6 +90,7 @@ namespace VApp.Controllers
                         return RedirectToAction("Dashboard", "Login");
 
                     }
+                   
                 }
 
             }

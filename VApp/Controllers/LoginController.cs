@@ -22,6 +22,7 @@ namespace VApp.Controllers
         }
 
         [HttpPost()]
+        
         public IActionResult Login(LoginModel loginData)
         {
             var userdata = _db.Employees.FirstOrDefault(e => e.Code == loginData.Code &&
@@ -29,6 +30,7 @@ namespace VApp.Controllers
 
             if (userdata != null)
             {
+              
                 var empdata = new EmployeeDataModel();
 
                 //empdata.Code = userdata.Code;

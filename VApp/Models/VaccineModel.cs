@@ -11,14 +11,19 @@ namespace VApp.Models
     public class VaccineModel
     {
 
-        [Required(ErrorMessage = "Please select file.")]
-        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.doc|.docx|.pdf)$", ErrorMessage = "Only Image files allowed.")]
+       
+        
         public int EmpId { get; set; }
-
+        
         public int VaccineNameId { get; set; }
         public int DoseTypeId { get; set; }
+        [Required(ErrorMessage = "Please enter the hospital name.")]
         public string HospitalName { get; set; }
+        [Required(ErrorMessage = "Please select file.")]
+        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.pdf)$", ErrorMessage = "Only pdf files allowed.")]
+       
         public string CertificatePath { get; set; }
+        [Required(ErrorMessage = "Please select the date.")]
         public DateTime VaccinationDate { get; set; }
         
     }

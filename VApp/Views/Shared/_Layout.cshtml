@@ -6,11 +6,12 @@
     <title>Covid Track</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container"  style="position: relative;">
+            <div class="container" style="position: relative;">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Covid Track</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -19,10 +20,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item" style="visibility: hidden;" >
+                        <li class="nav-item" style="visibility: hidden;">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                         </li>
-                       
+
                         <li class="nav-item" style="position: absolute; right: 0;">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                         </li>
@@ -39,15 +40,19 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container"><div class="row">
-    <div class="col-10">Developed By - Team (α+β)</div>
-    <div class="col-2"> &copy; 2021 - Covid Track</div>
-</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-10">Developed By - Team (α+β)</div>
+                <div class="col-2"> &copy; 2021 - Covid Track</div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
