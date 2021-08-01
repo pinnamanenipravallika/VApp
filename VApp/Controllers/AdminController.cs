@@ -41,7 +41,20 @@ namespace VApp.Controllers
 
             return View(await emp.AsNoTracking().ToListAsync());
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleteRecord = await _db.Employees.FindAsync(id);
+            if (deleteRecord == null)
+            {
+                return NotFound();
 
+            }
+            _db.Employees.Remove(deleteRecord);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index","Admin");
+        }
 
     }
 }
