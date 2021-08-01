@@ -26,8 +26,13 @@ namespace VApp
             services.AddSession();
 
             services.AddControllersWithViews();
-            services.AddDbContext<VaccinationdbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("VADatabase")));
-
+            services.AddDbContext<VaccinationdbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("VADatabase"),
+                sqlServerOptionsAction: sqlOptions=>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                }
+                    ));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
