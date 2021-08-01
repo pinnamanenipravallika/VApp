@@ -19,9 +19,16 @@ namespace VApp.Controllers
 
         public IActionResult Index()
         {
-            AffectedModel model = new AffectedModel();
+            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
 
+            var affectedData = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == empdata.ID);
             var relationships = _db.RelationshipTypes.ToList();
+            AffectedModel model = new AffectedModel()
+            {
+                IsRecoveryed = affectedData.IsRecoveryed,
+                RecoveryDuration = affectedData.RecoveryDuration,
+                IsFamilyAffected = affectedData.IsFamilyAffected
+            };
 
             var listRelations = new List<RelationshipTypeModel>();
             foreach (var item in relationships)
@@ -35,7 +42,7 @@ namespace VApp.Controllers
             }
             model.RelationshipTypes = listRelations;
 
-            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+
             ViewBag.EmpId = empdata.ID;
 
             return View(model);
@@ -43,28 +50,53 @@ namespace VApp.Controllers
         [HttpPost]
         public IActionResult Insert(AffectedModel affectedModel)
         {
-            //var data = new AffectedEmployee()
-            //{
-            //    EmpId = affectedModel.EmpId,
-            //    IsRecoveryed = affectedModel.IsRecoveryed,
-            //    RecoveryDuration = affectedModel.RecoveryDuration,
-            //    IsFamilyAffected = affectedModel.IsFamilyAffected
-            //};
-            //var dataExist = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == affectedModel.EmpId);
-            //if (dataExist == null)
-            //{
-            //    _db.AffectedEmployees.Add(data);
-            //    _db.SaveChanges();
-            //}
-            //else
-            //{
-            //    dataExist.IsRecoveryed = affectedModel.IsRecoveryed;
-            //    dataExist.RecoveryDuration = affectedModel.RecoveryDuration;
-            //    dataExist.IsFamilyAffected = affectedModel.IsFamilyAffected;
-            //    _db.SaveChanges();
-            //}
+            var data = new AffectedEmployee()
+            {
+                EmpId = affectedModel.EmpId,
+                IsRecoveryed = affectedModel.IsRecoveryed,
+                RecoveryDuration = affectedModel.RecoveryDuration,
+                IsFamilyAffected = affectedModel.IsFamilyAffected
+            };
+            var dataExist = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == affectedModel.EmpId);
+            if (dataExist == null)
+            {
+                _db.AffectedEmployees.Add(data);
+                _db.SaveChanges();
+            }
+            else
+            {
+                dataExist.IsRecoveryed = affectedModel.IsRecoveryed;
+                dataExist.RecoveryDuration = affectedModel.RecoveryDuration;
+                dataExist.IsFamilyAffected = affectedModel.IsFamilyAffected;
+                _db.SaveChanges();
+            }
 
+            if (affectedModel.AffectedFamilyModels.Count > 0)
+            {
+                var affectedFamilies = new List<AffectedFamilyDetail>();
 
+                foreach (var family in affectedModel.AffectedFamilyModels)
+                {
+                    if (family.MemberName != "no-data")
+                    {
+                        var affectedFamily = new AffectedFamilyDetail()
+                        {
+                            EmpId = affectedModel.EmpId,
+                            MemberName = family.MemberName,
+                            IsRecoveryed = family.IsRecoveryed,
+                            RecoveryDuration = family.RecoveryDuration,
+                            RelationshipId = family.RelationshipId
+                        };
+                        affectedFamilies.Add(affectedFamily);
+                    }
+                }
+
+                if (affectedFamilies.Count > 0)
+                {
+                    _db.AffectedFamilyDetails.AddRange(affectedFamilies);
+                    _db.SaveChanges();
+                }
+            }
 
             return RedirectToAction("Dashboard", "Login");
         }

@@ -15,47 +15,46 @@
                 <div class="form-group">
                     <label class="control-label">Is Recoverded : </label>
                     <input asp-for="IsRecoveryed" type="radio" value="true" /> Yes
-                    <input asp-for="IsRecoveryed" type="radio" value="false" checked /> No
+                    <input asp-for="IsRecoveryed" type="radio" value="false" /> No
                 </div>
                 <div class="form-group">
                     <label class="control-label">Recovery Duration: </label>
                     <input asp-for="RecoveryDuration" type="text" required />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Is Recoverded : </label>
+                    <label class="control-label">Is Family Affected : </label>
                     <input asp-for="IsFamilyAffected" type="radio" value="true" /> Yes
-                    <input asp-for="IsFamilyAffected" type="radio" value="false" checked /> No
+                    <input asp-for="IsFamilyAffected" type="radio" value="false" /> No
                 </div>
-                <div>
-                    <div class="form-group">
-                        <div class="float-left m-3">
+                <div id="FamilyDiv">
+                    <div class="form-group" id="family">
+                        <div class="float-left mt-3 mx-3">
                             <label>Member Name:</label>
                             <br />
                             <input asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
                         </div>
-                        <div class="float-left m-3">
+                        <div class="float-left mt-3 mx-3">
                             <label>Is Recoverded : </label>
                             <br />
                             <input asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="true" /> Yes
                             <input class="mx-2" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="false" checked /> No
                         </div>
-                        <div class="float-left m-3">
+                        <div class="float-left mt-3 mx-3">
                             <label>Recovery Duration: </label>
                             <br />
                             <input asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required />
                         </div>
-                        <div class="float-left m-3">
+                        <div class="float-left mt-3 mx-3">
                             <label>Relationship : </label>
                             <br />
                             @Html.DropDownListFor(m => m.AffectedFamilyModels[0].RelationshipId, new SelectList(Model.RelationshipTypes, "Id", "TypeName"), new { @class = "p-1" })
                         </div>
-                        <div class="float-left m-3">
-                            <button id="remove" class="btn btn-danger mt-4" onclick="RemoveFamily(this)">X</button>
+                        <div class="float-left mt-3 mx-3">
+                            <input type="button" id="remove" class="btn btn-danger mt-4" onclick="RemoveFamily(this)" value="X" />
                         </div>
-
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div id="FamilyDiv"> </div>
+                    <br />
                 </div>
 
                 <div class="form-group">
@@ -82,22 +81,24 @@
                 var value = "";
 
                 var memberName = $("<input/>").attr("type", "textbox")
-                    .attr("name", "AffectedFamilyModels[" + i + "].MemberName");
+                    .attr("name", "AffectedFamilyModels[" + i + "].MemberName")
+                    .attr("required", "");
                 divMemberName.append(memberName);
 
                 var isRecoveredYes = $("<input>").attr("type", "radio")
                     .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
-                var labelYes = $("<label> Yes</label>").attr("class", "mx-2");
+                var labelYes = $("<label>Yes</label>").attr("class", "mx-1");
                 var labelNo = $("<label> No</label>");
-                var isRecoveredNo = $("<input/>").attr("type", "radio")
-                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "mx-2");
+                var isRecoveredNo = $("<input/>").attr("type", "radio").attr("checked", "true")
+                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "mx-3 ml-3");
                 divIsRecovered.append(isRecoveredYes);
                 divIsRecovered.append(labelYes);
                 divIsRecovered.append(isRecoveredNo);
                 divIsRecovered.append(labelNo);
 
                 var recoveryDuration = $("<input/>").attr("type", "number")
-                    .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration");
+                    .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration")
+                    .attr("required", "");
                 divDuration.append(recoveryDuration);
 
                 var relationshipDropDrown = $("<select/>").attr("class", "p-1")
@@ -121,7 +122,7 @@
                     .attr("onclick", "RemoveFamily(this)");
 
                 var lineBreak = $("<br/>");
-                var clearFix = $("<div/>").attr("class", "clearfix m-0");
+                var clearFix = $("<div/>").attr("class", "clearfix");
 
                 divRemoveButton.append(removeButton);
 
@@ -139,7 +140,9 @@
             });
         });
         function RemoveFamily(button) {
-            $(button).parent().parent().remove();
+            $(button).parent().parent().children().children("input:text").attr("value", "no-data");
+            $(button).parent().parent().children().children('input[type="number"]').attr("value", "0");
+            $(button).parent().parent().hide();
         }
     </script>
 }
