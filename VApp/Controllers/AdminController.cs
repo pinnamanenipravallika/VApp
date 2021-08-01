@@ -25,6 +25,7 @@ namespace VApp.Controllers
         {
             
             var displaydata = _db.Employees.ToList();
+
             return View(displaydata);
         }
 
@@ -54,6 +55,14 @@ namespace VApp.Controllers
             await _db.SaveChangesAsync();
 
             return RedirectToAction("Index","Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(EmployeeDataModel employee)
+        {
+
+
+            return RedirectToAction("Index", "Admin");
+
         }
 
     }
