@@ -23,12 +23,14 @@ namespace VApp.Controllers
 
             var affectedData = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == empdata.ID);
             var relationships = _db.RelationshipTypes.ToList();
-            AffectedModel model = new AffectedModel()
+            AffectedModel model = new AffectedModel();
+            if (affectedData != null)
             {
-                IsRecoveryed = affectedData.IsRecoveryed,
-                RecoveryDuration = affectedData.RecoveryDuration,
-                IsFamilyAffected = affectedData.IsFamilyAffected
-            };
+                model.IsRecoveryed = affectedData.IsRecoveryed;
+                model.RecoveryDuration = affectedData.RecoveryDuration;
+                model.IsFamilyAffected = affectedData.IsFamilyAffected;
+            }
+
 
             var listRelations = new List<RelationshipTypeModel>();
             foreach (var item in relationships)
@@ -40,7 +42,10 @@ namespace VApp.Controllers
                 };
                 listRelations.Add(relation);
             }
-            model.RelationshipTypes = listRelations;
+            if (listRelations.Count > 0)
+            {
+                model.RelationshipTypes = listRelations;
+            }
 
 
             ViewBag.EmpId = empdata.ID;
