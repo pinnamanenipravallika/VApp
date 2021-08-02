@@ -102,13 +102,13 @@
 
                         <td>
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#@item.Code">
-                                Edit
+                                <i class="bi bi-pencil-square"></i>
                             </button>
 
                         </td>
                         <td>
                             <form asp-action="Delete" asp-route-id="@item.ID" method="post">
-                                <button class="btn btn-danger">Delete</button>
+                                <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>
 
