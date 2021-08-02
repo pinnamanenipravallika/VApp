@@ -2,7 +2,14 @@
 @{
     ViewData["Title"] = "Affected";
 
-    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+    if (ViewBag.IsAdmin)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+    }
 }
 
 
@@ -29,7 +36,7 @@
                 <div id="FamilyDiv">
                     <div class="form-group" id="family">
                         <div class="float-left mt-3 mx-3">
-                            <label>Member Name:</label>
+                            <label>Family Member Name:</label>
                             <br />
                             <input asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
                         </div>

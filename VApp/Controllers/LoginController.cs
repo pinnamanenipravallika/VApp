@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using VApp.Entities;
 using VApp.Models;
 
@@ -27,23 +26,13 @@ namespace VApp.Controllers
         public IActionResult Login(LoginModel loginData)
         {
             var userdata = _db.Employees.FirstOrDefault(e => e.Code == loginData.Code &&
-                                                    e.Password == loginData.Password);
+                                                             e.Password == loginData.Password);
 
             if (userdata != null)
             {
+                HttpContext.Session.SetInt32("roleId", (int)userdata.RoleId);
 
-                var empdata = new EmployeeDataModel();
-
-                //empdata.Code = userdata.Code;
-                //empdata.Email = userdata.Email;
-                //empdata.Address = userdata.Address;
-                //empdata.FirstName = userdata.FirstName;
-                //empdata.LastName = userdata.LastName;
-                //empdata.Mobile = userdata.Mobile;
-                empdata.ID = userdata.Id;
-                //empdata.JoiningDate = userdata.JoiningDate;
-
-                HttpContext.Session.SetString("id", JsonConvert.SerializeObject(empdata));
+                HttpContext.Session.SetInt32("empId", userdata.Id);
 
                 if (userdata.RoleId == 1)
                 {
@@ -59,9 +48,9 @@ namespace VApp.Controllers
         [HttpGet]
         public IActionResult Dashboard()
         {
-            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+            var empId = HttpContext.Session.GetInt32("empId");
 
-            var getEmployeeDetails = _db.Employees.FirstOrDefault(g => g.Id == empdata.ID);
+            var getEmployeeDetails = _db.Employees.FirstOrDefault(g => g.Id == empId);
 
             var empDashboard = new EmployeeDataModel();
 
@@ -76,7 +65,7 @@ namespace VApp.Controllers
 
 
 
-            var vaccinationDetails = _db.VaccinationDetails.Where(v => v.EmpId == empdata.ID).
+            var vaccinationDetails = _db.VaccinationDetails.Where(v => v.EmpId == empId).
                 Join(_db.VaccinationNames, vd => vd.VccineNameId, vn => vn.Id, (vd, vn) => new { vd, vn })
                .Join(_db.DoseTypes, vd => vd.vd.DoseTypeId, dt => dt.Id, (vd, dt) => new VaccineListDataModel
                {
@@ -113,9 +102,9 @@ namespace VApp.Controllers
         [HttpGet]
         public IActionResult AdminDashboard()
         {
-            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+            var empId = HttpContext.Session.GetInt32("empId");
 
-            var getEmployeeDetails = _db.Employees.FirstOrDefault(g => g.Id == empdata.ID);
+            var getEmployeeDetails = _db.Employees.FirstOrDefault(g => g.Id == empId);
 
             var empDashboard = new EmployeeDataModel();
 
@@ -130,7 +119,7 @@ namespace VApp.Controllers
 
 
 
-            var vaccinationDetails = _db.VaccinationDetails.Where(v => v.EmpId == empdata.ID).
+            var vaccinationDetails = _db.VaccinationDetails.Where(v => v.EmpId == empId).
                 Join(_db.VaccinationNames, vd => vd.VccineNameId, vn => vn.Id, (vd, vn) => new { vd, vn })
                .Join(_db.DoseTypes, vd => vd.vd.DoseTypeId, dt => dt.Id, (vd, dt) => new VaccineListDataModel
                {

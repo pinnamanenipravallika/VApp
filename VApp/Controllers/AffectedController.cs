@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using VApp.Entities;
 using VApp.Models;
 
@@ -11,7 +10,8 @@ namespace VApp.Controllers
     public class AffectedController : Controller
     {
         private readonly VaccinationdbContext _db;
-
+        private int? empId;
+        private int? roleId;
         public AffectedController(VaccinationdbContext db)
         {
             _db = db;
@@ -19,9 +19,13 @@ namespace VApp.Controllers
 
         public IActionResult Index()
         {
-            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+            empId = HttpContext.Session.GetInt32("empId");
+            ViewBag.EmpId = empId;
 
-            var affectedData = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == empdata.ID);
+            roleId = HttpContext.Session.GetInt32("roleId");
+            ViewBag.IsAdmin = roleId == 2;
+
+            var affectedData = _db.AffectedEmployees.FirstOrDefault(a => a.EmpId == empId);
             var relationships = _db.RelationshipTypes.ToList();
             AffectedModel model = new AffectedModel();
             if (affectedData != null)
@@ -46,9 +50,6 @@ namespace VApp.Controllers
             {
                 model.RelationshipTypes = listRelations;
             }
-
-
-            ViewBag.EmpId = empdata.ID;
 
             return View(model);
         }
