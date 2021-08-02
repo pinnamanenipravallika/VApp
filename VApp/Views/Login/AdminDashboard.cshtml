@@ -20,11 +20,6 @@
         <label for="joiningdate" style="font-weight:bolder" class="bold">Joining Date:</label><br />
         <label for="mobile" style="font-weight:bolder" class="bold">Mobile No:</label><br />
         <label for="address" style="font-weight:bolder" class="bold">Address:</label><br />
-        <label for="vname" style="font-weight:bolder" class="bold">Vaccine Name:</label><br />
-        <label for="vaccinatedgdate" style="font-weight:bolder" class="bold">Vaccinated Date:</label><br />
-        <label for="dosetype" style="font-weight:bolder" class="bold">Dose No: </label><br />
-        <label for="hname" style="font-weight:bolder" class="bold">Hospital Name:</label><br />
-        <label for="certificate" style="font-weight:bolder" class="bold">Certificate:</label>
 
     </div>
     <div class="col-6">
@@ -35,15 +30,41 @@
         <label id="joiningdate">@Model.JoiningDate</label><br />
         <label id="mobile">@Model.Mobile</label><br />
         <label id="address">@Model.Address</label><br />
-        @foreach (var item in Model.EmpVaccinationData)
-        {
-            <label id="vname">@item.VccineName</label><br />
-            <label id="vaccinateddate">@item.VaccinationDate</label><br />
-            <label id="dosetype">@item.DoseType</label><br />
-            <label id="hname">@item.HospitalName</label><br />
-            <label id="certificate">@item.CertificatePath</label>
-        }
+     
     </div>
 
 </div>
 
+
+<div class="row">
+    <div class="col-4">
+
+    </div>
+    <div class="col-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Vaccine Name</th>
+                    <th scope="col">Vaccinated Date</th>
+                    <th scope="col">Dose No</th>
+                    <th scope="col">Hostital Name</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.EmpVaccinationData)
+                {
+                    <tr>
+
+                        <td>@item.VccineName</td>
+                        <td>@item.VaccinationDate</td>
+                        <td>@item.DoseType</td>
+                        <td>@item.HospitalName</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
