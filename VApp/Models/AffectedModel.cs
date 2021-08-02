@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace VApp.Models
 {
@@ -6,6 +7,7 @@ namespace VApp.Models
     {
         public int EmpId { get; set; }
         public bool IsRecoveryed { get; set; }
+        [Required]
         public int? RecoveryDuration { get; set; }
         public bool IsFamilyAffected { get; set; }
         public List<AffectedFamilyModel> AffectedFamilyModels { get; set; }

@@ -105,7 +105,7 @@
 
                 var recoveryDuration = $("<input/>").attr("type", "number")
                     .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration")
-                    .attr("required", "");
+                    .attr("required", "").;
                 divDuration.append(recoveryDuration);
 
                 var relationshipDropDrown = $("<select/>").attr("class", "p-1")
@@ -116,6 +116,7 @@
                 var option4 = $("<option>BROTHER</option>").attr("value", "4");
                 var option5 = $("<option>WIFE</option>").attr("value", "5");
                 var option6 = $("<option>HUSBAND</option>").attr("value", "6");
+                var option7 = $("<option>CHILD</option>").attr("value", "7");
                 relationshipDropDrown.append(option1);
                 relationshipDropDrown.append(option2);
                 relationshipDropDrown.append(option3);

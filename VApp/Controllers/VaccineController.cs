@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Web;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
-using Newtonsoft.Json;
 using VApp.Entities;
 using VApp.Models;
 
@@ -16,7 +12,8 @@ namespace VApp.Controllers
     public class VaccineController : Controller
     {
         private readonly VaccinationdbContext _db;
-        
+        private int? empId;
+        private int? roleId;
         public VaccineController(VaccinationdbContext db)
         {
             _db = db;
@@ -24,9 +21,11 @@ namespace VApp.Controllers
         public IActionResult Index()
         {
 
-            var empdata = JsonConvert.DeserializeObject<EmployeeDataModel>(HttpContext.Session.GetString("id"));
+            empId = HttpContext.Session.GetInt32("empId");
+            ViewBag.EmpId = empId;
 
-          
+            roleId = HttpContext.Session.GetInt32("roleId");
+            ViewBag.IsAdmin = roleId == 2;
 
             var listModel = new ListModel();
 
@@ -38,18 +37,18 @@ namespace VApp.Controllers
 
             listModel.DoseTypes = doseTypes;
             listModel.VaccinationNames = vaccineNames;
-            listModel.EmpId = empdata.ID;
-            
+            listModel.EmpId = (int)empId;
+
 
             return View(listModel);
 
-            }
-            [HttpPost()]
-            public IActionResult Insert(ListModel vaccineData)
-            {
+        }
+        [HttpPost()]
+        public IActionResult Insert(ListModel vaccineData)
+        {
             var insertData = new VaccinationDetail();
-                        
-          
+
+
             if (vaccineData.File != null && vaccineData.VaccineModel.EmpId != null && vaccineData.VaccineModel.VaccineNameId != null && vaccineData.VaccineModel.DoseTypeId != null && vaccineData.VaccineModel.VaccinationDate != null && vaccineData.VaccineModel.HospitalName != null)
             {
                 insertData.EmpId = vaccineData.VaccineModel.EmpId;
@@ -69,13 +68,13 @@ namespace VApp.Controllers
                     //Getting file Extension
                     var fileExtension = Path.GetExtension(fileName);
 
-                    if(fileExtension == ".pdf")
+                    if (fileExtension == ".pdf")
                     {
-                    // concatenating  FileName + FileExtension
+                        // concatenating  FileName + FileExtension
                         var newFileName = String.Concat(myUniqueFileName, fileExtension);
 
                         insertData.CertificatePath = newFileName;
-                   
+
                         // Combines two strings into a path.
                         var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")).Root + $@"{newFileName}";
 
@@ -90,7 +89,7 @@ namespace VApp.Controllers
                         return RedirectToAction("Dashboard", "Login");
 
                     }
-                   
+
                 }
 
             }
@@ -102,7 +101,7 @@ namespace VApp.Controllers
 
 
             return RedirectToAction("Index", "vaccine");
-            }
         }
     }
+}
 
