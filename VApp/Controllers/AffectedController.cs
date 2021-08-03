@@ -56,6 +56,13 @@ namespace VApp.Controllers
         [HttpPost]
         public IActionResult Insert(AffectedModel affectedModel)
         {
+
+            empId = HttpContext.Session.GetInt32("empId");
+            ViewBag.EmpId = empId;
+
+            roleId = HttpContext.Session.GetInt32("roleId");
+            ViewBag.IsAdmin = roleId == 2;
+
             var data = new AffectedEmployee()
             {
                 EmpId = affectedModel.EmpId,
@@ -103,8 +110,14 @@ namespace VApp.Controllers
                     _db.SaveChanges();
                 }
             }
-
-            return RedirectToAction("Dashboard", "Login");
+            if (ViewBag.IsAdmin)
+            {
+                return RedirectToAction("AdminDashboard", "Login");
+            }
+            else
+            {
+                return RedirectToAction("Dashboard", "Login");
+            }
         }
     }
 }

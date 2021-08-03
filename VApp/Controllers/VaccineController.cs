@@ -49,9 +49,9 @@ namespace VApp.Controllers
             var insertData = new VaccinationDetail();
 
 
-            if (vaccineData.File != null && vaccineData.VaccineModel.EmpId != null && vaccineData.VaccineModel.VaccineNameId != null && vaccineData.VaccineModel.DoseTypeId != null && vaccineData.VaccineModel.VaccinationDate != null && vaccineData.VaccineModel.HospitalName != null)
+            if (vaccineData.File != null && vaccineData.EmpId != null && vaccineData.VaccineModel.VaccineNameId != null && vaccineData.VaccineModel.DoseTypeId != null && vaccineData.VaccineModel.VaccinationDate != null && vaccineData.VaccineModel.HospitalName != null)
             {
-                insertData.EmpId = vaccineData.VaccineModel.EmpId;
+                insertData.EmpId = vaccineData.EmpId;
                 insertData.VccineNameId = vaccineData.VaccineModel.VaccineNameId;
                 insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
                 insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;

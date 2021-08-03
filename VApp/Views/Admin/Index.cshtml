@@ -1,117 +1,104 @@
 ﻿@model VApp.Models.AdminModel
+
 @{
     ViewData["Title"] = "Admin";
 
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
-
 <div class="row">
-
-    <div class="col-12">
+    <div class="col">
         <h1>Search Employee</h1>
-        <hr />
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
+    <div class="col">
         <form method="get" class="row g-3" asp-action="Index">
-            <div class="col-2"></div>
-            <div class="form-group mb-3 col-5">
-                <input type="search" class="form-control" placeholder="Enter Employee Name, Email or Code" value="@ViewData["GetEmployeeDetails"]" name="Empsearch" />
 
+            <div class="form-group mb-3 col-6">
+                <input type="search" class="form-control" placeholder="Enter Employee Name, Email or Code" asp-for="SearchModel.SearchKey" />
             </div>
             <div class="form-group mb-3 col-1">
                 <input type="submit" value="Search" class="btn btn-primary" />
-
             </div>
-            <div class="col-1"></div>
-            <div class="form-group mb-3 col-2">
+            <div class="form-group mb-3 col-3">
                 <a class="btn btn-primary" asp-action="Index"> Get All Employees </a>
-
             </div>
-
+            <div class="form-group mb-3 col-2">
+                <a class="btn btn-primary text-white" id="advanceSearchBtn" onclick="DisplayAdvanceSearch()"> Close Advance Search </a>
+            </div>
+            <div id="advanceSearch" class="col-12">
+                <div class="form-group mb-3 col-3 float-left">
+                    From Date:
+                    <input type="date" class="form-control" asp-for="SearchModel.FromDate" />
+                </div>
+                <div class="form-group mb-3  col-3 float-left">
+                    To Date:
+                    <input type="date" class="form-control" asp-for="SearchModel.ToDate" />
+                </div>
+                <div class="form-group mb-3 col-3 float-left">
+                    Dose Type:
+                    @Html.DropDownListFor(m => m.SearchModel.DoseType, new SelectList(Model.DoseTypes, "Id", "DoseType1"), new { @class = "form-control" })
+                </div>
+                <div class="form-group mb-3 col-3 float-left">
+                    Vaccine Name:
+                    @Html.DropDownListFor(m => m.SearchModel.VaccineName, new SelectList(Model.VaccinationNames, "Name", "Name"), new { @class = "form-control" })
+                </div>
+            </div>
         </form>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
- 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            Code
-                            @*Html.DisplayNameFor(model => model.Code)*@
-                        </th>
-                        <th scope="col">
-                            First Name
-                            @*Html.DisplayNameFor(model => model.FirstName)*@
-                        </th>
-                        <th scope="col">
-                            Last Name
-                            @*Html.DisplayNameFor(model => model.LastName)*@
-                        </th>
-                        <th scope="col">
-                            Email
-                            @*Html.DisplayNameFor(model => model.Email)*@
-                        </th>
-                        <th scope="col">
-                            Mobile
-                            @*Html.DisplayNameFor(model => model.Mobile)*@
-                        </th>
-                        <th scope="col">
-                            Address
-                            @*Html.DisplayNameFor(model => model.Address)*@
-                        </th>
-                        <th scope="col">
-                            Joining Date
-                            @*Html.DisplayNameFor(model => model.JoiningDate)*@
-                        </th>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-light">
 
+                    <tr>
+                        <th width="20%" scope="col">
+                            @Html.DisplayNameFor(model => model.EmpDataListModel[0].Code)
+                        </th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].FirstName)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].LastName)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Email)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Mobile)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Address)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].JoiningDate)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].VccineName)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].VaccinationDate)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].DoseType)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].HospitalName)</th>
+                        <th scope="col">Actions</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
-
-                    @foreach (var item in Model.EmpData)
+                    @foreach (var item in Model.EmpDataListModel)
                     {
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Mobile)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                            <td>@Html.DisplayFor(modelItem => item.JoiningDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.VccineName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.VaccinationDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DoseType)</td>
+                            <td>@Html.DisplayFor(modelItem => item.HospitalName)</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Mobile)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address)
-                            </td>
-                            <td>
-                                @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.JoiningDate))
-                               
-                            </td>
+                                <div class="d-flex justify-content-around">
+                                    <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#@item.Code">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
 
-                            <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#@item.Code">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
 
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                        <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                 </div>
                             </td>
-                            <td>
-                                <form asp-action="Delete" asp-route-id="@item.ID" method="post">
-                                    <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                                </form>
-                            </td>
-
                         </tr>
                         <div class="modal fade" id="@item.Code" tabindex="-1" role="dialog" aria-labelledby="#@item.FirstName" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -123,38 +110,38 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form asp-action="PutEmployee" asp-controller="Admin" method="post">
+                                        <form asp-action="Update" asp-controller="Admin" method="post">
                                             <div class="form-group">
                                                 <label for="id" class="col-form-label d-none">Employee ID:</label>
-                                                <input type="text" class="form-control d-none" id="id" asp-for="EmpData[0].ID" value="@item.ID">
+                                                <input type="text" class="form-control d-none" id="id" asp-for="EmpDataListModel[0].Id" value="@item.Id">
                                             </div>
                                             <div class="form-group">
                                                 <label for="code" class="col-form-label">Employee Code:</label>
-                                                <input type="text" class="form-control" id="code" asp-for="EmpData[0].Code" value="@item.Code" readonly>
+                                                <input type="text" class="form-control" id="code" asp-for="EmpDataListModel[0].Code" value="@item.Code" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="first-name" class="col-form-label">First Name:</label>
-                                                <input type="text" class="form-control" asp-for="EmpData[0].FirstName" id="first-name" value="@item.FirstName">
+                                                <input type="text" class="form-control" asp-for="EmpDataListModel[0].FirstName" id="first-name" value="@item.FirstName">
                                             </div>
                                             <div class="form-group">
                                                 <label for="last-name" class="col-form-label">Last Name:</label>
-                                                <input type="text" class="form-control" asp-for="EmpData[0].LastName" id="last-name" value="@item.LastName">
+                                                <input type="text" class="form-control" asp-for="EmpDataListModel[0].LastName" id="last-name" value="@item.LastName">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email" class="col-form-label">Email:</label>
-                                                <input type="email" class="form-control" asp-for="EmpData[0].Email" id="email" value="@item.Email">
+                                                <input type="email" class="form-control" asp-for="EmpDataListModel[0].Email" id="email" value="@item.Email">
                                             </div>
                                             <div class="form-group">
                                                 <label for="mobile" class="col-form-label">Mobile:</label>
-                                                <input type="text" class="form-control" asp-for="EmpData[0].Mobile" id="mobile" value="@item.Mobile">
+                                                <input type="text" class="form-control" asp-for="EmpDataListModel[0].Mobile" id="mobile" value="@item.Mobile">
                                             </div>
                                             <div class="form-group">
                                                 <label for="joining-date" class="col-form-label">Joining Date:</label>
-                                                <input type="text" class="form-control" asp-for="EmpData[0].JoiningDate" id="joining-date" value="@item.JoiningDate" readonly>
+                                                <input type="text" class="form-control" asp-for="EmpDataListModel[0].JoiningDate" id="joining-date" value="@item.JoiningDate" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="address" class="col-form-label">Address:</label>
-                                                <input type="text" class="form-control" asp-for="EmpData[0].Address" id="joining-date" value="@item.Address">
+                                                <input type="text" class="form-control" asp-for="EmpDataListModel[0].Address" id="joining-date" value="@item.Address">
 
 
                                             </div>
@@ -170,15 +157,32 @@
                     }
                 </tbody>
             </table>
-     
-      
 
+
+        </div>
     </div>
 </div>
 
+@section scripts{
+    <script type="text/javascript">
+
+        function DisplayAdvanceSearch() {
+            var advBtn = $("#advanceSearchBtn");
+            if (advBtn[0].innerText == "Close Advance Search") {
+                advBtn.text("Advance Search");
+            } else {
+                advBtn.text("Close Advance Search");
+                $("#SearchModel_VaccineName").val("");
+                $("#SearchModel_DoseType").val("");
+                $("#SearchModel_FromDate").val("");
+                $("#SearchModel_ToDate").val("");
+            }
+            $("#advanceSearch").toggle();
+        }
 
 
 
-
+    </script>
+}
 
 

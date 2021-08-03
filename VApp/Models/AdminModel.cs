@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using VApp.Entities;
 
 namespace VApp.Models
 {
     public class AdminModel
     {
-        public List<EmployeeDataModel> EmpData { get; set; }
-        public List<EmployeeVaccinationDataModel> EmpVaccinationData { get; set; }
-       
+        public SearchModel SearchModel { get; set; }
+        public List<SearchDataModel> EmpDataListModel { get; set; } = new List<SearchDataModel>();
+        public List<EmployeeVaccinationDataModel> EmpVaccinationDataListModel { get; set; }
+
+        public List<DoseType> DoseTypes { get; set; } = new List<DoseType>();
+        public List<VaccinationName> VaccinationNames { get; set; } = new List<VaccinationName>();
     }
 }

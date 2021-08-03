@@ -134,8 +134,13 @@
 
                 var memberName = $("<input/>").attr("class", "form-control").attr("type", "textbox")
                     .attr("name", "AffectedFamilyModels[" + i + "].MemberName")
-                    .attr("required", "");
+                    .attr("id", "AffectedFamilyModels_[" + i + "]__MemberName")
+                    .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
+                var spanValidation = $("<span/>").attr("data-valmsg-for", "AffectedFamilyModels[" + i + "].MemberName").attr("data-valmsg-replace", true).attr("class", "text-danger field-validation-error");
+
                 divMemberName.append(memberName);
+                divMemberName.append(lineBreak);
+                divMemberName.append(spanValidation);
 
                 var isRecoveredYes = $("<input>").attr("type", "radio").attr("id", "recoveredRadio1")
                     .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "form-check-input ml-4");
@@ -150,7 +155,7 @@
 
                 var recoveryDuration = $("<input/>").attr("type", "number").attr("class", "form-control")
                     .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration")
-                    .attr("required", "");
+                    .attr("required", "").attr("value", 0);
                 divDuration.append(recoveryDuration);
 
                 var relationshipDropDrown = $("<select/>").attr("class", "form-control p-1")
