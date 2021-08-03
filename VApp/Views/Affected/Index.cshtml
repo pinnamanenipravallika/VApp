@@ -40,125 +40,131 @@
                         <input class="form-control" asp-for="RecoveryDuration" type="text" required />
                         <span asp-validation-for="RecoveryDuration" class="text-danger"></span>
                     </div>
-                  
+
                 </div>
-                
+
                 <div class="form-check form-check-inline mt-2">
                     <label class="form-check-label">Is Family Affected: </label>
                     <div class="form-check-inline ml-2">
                         <input class="form-check-input" asp-for="IsFamilyAffected" type="radio" value="true" />
                         <label class="form-check-label">Yes </label>
                     </div>
-                     <div class="form-check-inline">
+                    <div class="form-check-inline">
                         <input class="form-check-input" asp-for="IsFamilyAffected" type="radio" value="false" />
-                         <label class="form-check-label">No </label>
-                     </div>
+                        <label class="form-check-label">No </label>
                     </div>
+                </div>
 
-                    <div id="FamilyDiv" class="mt-3">
+                <div id="FamilyDiv" class="mt-3">
 
-                        <div class="form-group row" id="family">
+                    <div class="form-group row" id="family">
 
-                            <div class="form-group col-3">
-                                <label class="form-label">Family Member Name:</label>
-                                <br />
-                                <input class="form-control" asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
-                                <span asp-validation-for="AffectedFamilyModels[0].MemberName" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-check col-2">
-                                <label class="form-check-label mb-3">Is Recovered: </label>
-                                <br />
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" id="recoveredRadio1" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="true" />
-                                    <label class="form-check-label" for="recoveredRadio1">Yes </label>
-
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" id="recoveredRadio2" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="false" checked />
-                                    <label class="form-check-label" for="recoveredRadio2">No </label>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group col-3">
-                                <label class="form-label">Recovery Duration: </label>
-                                <br />
-                                <input class="form-control" asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required />
-                                
-                            </div>
-
-                            <div class="form-group col-2">
-                                <label class="form-co">Relationship:</label>
-                                <br />
-                                @Html.DropDownListFor(m => m.AffectedFamilyModels[0].RelationshipId, new SelectList(Model.RelationshipTypes, "Id", "TypeName"), new { @class = "p-1 form-control" })
-                            </div>
-                            <div class="form-group col-2 d-flex justify-content-between align-items-end">
-
-                                <button type="button" id="remove" class="btn btn-danger" onclick="RemoveFamily(this)">
-                                    <i class='bi bi-trash'></i>
-                                </button>
-                                <button class="btn btn-success" id="addMore" type="button"><i class='bi bi-plus-square'></i></button>
-                            </div>
+                        <div class="form-group col-3">
+                            <label class="form-label">Family Member Name:</label>
+                            <br />
+                            <input class="form-control" asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
+                            <span asp-validation-for="AffectedFamilyModels[0].MemberName" class="text-danger"></span>
                         </div>
 
+                        <div class="form-check col-2">
+                            <label class="form-check-label mb-3">Is Recovered: </label>
+                            <br />
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="recoveredRadio1" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="true" />
+                                <label class="form-check-label" for="recoveredRadio1">Yes </label>
 
-                    </div>
-                    <div class="form-group">
-                        <div class="d-grid grid-gap">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="recoveredRadio2" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="false" checked />
+                                <label class="form-check-label" for="recoveredRadio2">No </label>
 
-                            <input class="btn btn-primary" type="submit" value="Submit" />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group col-3">
+                            <label class="form-label">Recovery Duration: </label>
+                            <br />
+                            <input class="form-control" asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required />
+
+                        </div>
+
+                        <div class="form-group col-2">
+                            <label class="form-co">Relationship:</label>
+                            <br />
+                            @Html.DropDownListFor(m => m.AffectedFamilyModels[0].RelationshipId, new SelectList(Model.RelationshipTypes, "Id", "TypeName"), new { @class = "p-1 form-control" })
+                        </div>
+                        <div class="form-group col-2 d-flex justify-content-between align-items-end">
+
+                            <button type="button" id="remove" class="btn btn-danger" onclick="RemoveFamily(this)">
+                                <i class='bi bi-trash'></i>
+                            </button>
+                            <button class="btn btn-success" id="addMore" type="button"><i class='bi bi-plus-square'></i></button>
                         </div>
                     </div>
 
-</form>
+
+                </div>
+                <div class="form-group">
+                    <div class="d-grid grid-gap">
+
+                        <input class="btn btn-primary" type="submit" value="Submit" />
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>
+
+
 
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
             var i = 1;
 
-            $("#addMore").click(function () {
 
+            $("#addMore").click(function () {
                 var divFormGroup = $("<div/>").attr("class", "form-group row");
                 var divMemberName = $("<div/>").attr("class", "form-group col-3");
                 var divIsRecovered = $("<div/>").attr("class", "form-check form-check-inline mr-0 col-2");
-                var divDuration = $("<div/>").attr("class", "form-group col-3 ");
+                var divDuration = $("<div/>").attr("class", "form-group col-3");
                 var divRealtionship = $("<div/>").attr("class", "form-group col-2");
                 var divRemoveButton = $("<div/>").attr("class", "form-group col-2");
+                var lineBreak = $("<br/>");
                 var value = "";
 
-                var memberName = $("<input/>").attr("class", "form-control").attr("type", "textbox")
+
+                var memberName = $("<input/>").attr("type", "text").attr("class", "form-control")
                     .attr("name", "AffectedFamilyModels[" + i + "].MemberName")
-                    .attr("required", "")
-                        .attr("id", "AffectedFamilyModels[" + i + "].MemberName")
-                        .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
+                    .attr("id", "AffectedFamilyModels_[" + i + "]__MemberName")
+                    .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
                 var spanValidation = $("<span/>").attr("data-valmsg-for", "AffectedFamilyModels[" + i + "].MemberName").attr("data-valmsg-replace", true).attr("class", "text-danger field-validation-error");
 
-                   
+
                 divMemberName.append(memberName);
                 divMemberName.append(lineBreak);
                 divMemberName.append(spanValidation);
 
-                var isRecoveredYes = $("<input>").attr("type", "radio").attr("id", "recoveredRadio1")
-                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "form-check-input ml-4");
-                var labelYes = $("<label>Yes</label>").attr("class", "form-check-label form-check-inline").attr("for", "recoveredRadio1");
-                var labelNo = $("<label> No</label>").attr("class", "form-check-label form-check-inlline").attr("for", "recoveredRadio2");
-                var isRecoveredNo = $("<input/>").attr("type", "radio").attr("checked", "true").attr("id", "recoveredRadio2")
-                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "form-check-input");
+
+                var isRecoveredYes = $("<input>").attr("type", "radio").attr("class","form-check-input ml-4")
+                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
+                var labelYes = $("<label>Yes</label>").attr("class", "form-check-label form-check-inline");
+                var labelNo = $("<label> No</label>").attr("class", "form-check-label form-check-inline");;
+                var isRecoveredNo = $("<input/>").attr("type", "radio").attr("checked", "true").attr("class", "form-check-input")
+                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "mx-3 ml-3");
                 divIsRecovered.append(isRecoveredYes);
                 divIsRecovered.append(labelYes);
                 divIsRecovered.append(isRecoveredNo);
                 divIsRecovered.append(labelNo);
 
+
                 var recoveryDuration = $("<input/>").attr("type", "number").attr("class", "form-control")
                     .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration")
-                    .attr("required", "");
+                    .attr("required", "").attr("value", 0);
                 divDuration.append(recoveryDuration);
+
 
                 var relationshipDropDrown = $("<select/>").attr("class", "form-control p-1")
                     .attr("name", "AffectedFamilyModels[" + i + "].RelationshipId");
@@ -178,16 +184,20 @@
                 relationshipDropDrown.append(option7);
                 divRealtionship.append(relationshipDropDrown);
 
+
                 var removeButton = $("<button/>").attr("type", "button")
                     .attr("class", "btn btn-danger")
                     .attr("onclick", "RemoveFamily(this)");
 
-                var trashBtn = $("<i/>").attr("class", "bi bi-trash"); 
-                removeButton.append(trashBtn);
-                var lineBreak = $("<br/>");
-             
+                var trashIcon = $("<i/>").attr("class", "bi bi-trash");
+
+                removeButton.append(trashIcon);
+
+                var clearFix = $("<div/>").attr("class", "clearfix");
+
 
                 divRemoveButton.append(removeButton);
+
 
 
                 divFormGroup.append(divMemberName);
@@ -195,10 +205,11 @@
                 divFormGroup.append(divDuration);
                 divFormGroup.append(divRealtionship);
                 divFormGroup.append(divRemoveButton);
-     
-                
+                divFormGroup.append(clearFix);
 
-                $("#FamilyDiv").append(divFormGroup);
+
+
+                $("#FamilyDiv").append(divFormGroup).append(lineBreak);
                 i++;
             });
         });
@@ -209,3 +220,16 @@
         }
     </script>
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
