@@ -178,12 +178,14 @@
                 relationshipDropDrown.append(option7);
                 divRealtionship.append(relationshipDropDrown);
 
-                var removeButton = $("<input/>").attr("type", "button")
-                    .attr("value", "X").attr("class", "btn btn-danger bi bi-trash")
+                var removeButton = $("<button/>").attr("type", "button")
+                    .attr("class", "btn btn-danger")
                     .attr("onclick", "RemoveFamily(this)");
 
+                var trashBtn = $("<i/>").attr("class", "bi bi-trash"); 
+                removeButton.append(trashBtn);
                 var lineBreak = $("<br/>");
-               // var clearFix = $("<div/>").attr("class", "clearfix");
+             
 
                 divRemoveButton.append(removeButton);
 
@@ -193,7 +195,7 @@
                 divFormGroup.append(divDuration);
                 divFormGroup.append(divRealtionship);
                 divFormGroup.append(divRemoveButton);
-               // divFormGroup.append(clearFix);
+     
                 
 
                 $("#FamilyDiv").append(divFormGroup);
