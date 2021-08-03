@@ -134,10 +134,12 @@
 
                 var memberName = $("<input/>").attr("class", "form-control").attr("type", "textbox")
                     .attr("name", "AffectedFamilyModels[" + i + "].MemberName")
-                    .attr("id", "AffectedFamilyModels_[" + i + "]__MemberName")
-                    .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
+                    .attr("required", "")
+                        .attr("id", "AffectedFamilyModels[" + i + "].MemberName")
+                        .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
                 var spanValidation = $("<span/>").attr("data-valmsg-for", "AffectedFamilyModels[" + i + "].MemberName").attr("data-valmsg-replace", true).attr("class", "text-danger field-validation-error");
 
+                   
                 divMemberName.append(memberName);
                 divMemberName.append(lineBreak);
                 divMemberName.append(spanValidation);
@@ -155,7 +157,7 @@
 
                 var recoveryDuration = $("<input/>").attr("type", "number").attr("class", "form-control")
                     .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration")
-                    .attr("required", "").attr("value", 0);
+                    .attr("required", "");
                 divDuration.append(recoveryDuration);
 
                 var relationshipDropDrown = $("<select/>").attr("class", "form-control p-1")
@@ -173,13 +175,14 @@
                 relationshipDropDrown.append(option4);
                 relationshipDropDrown.append(option5);
                 relationshipDropDrown.append(option6);
+                relationshipDropDrown.append(option7);
                 divRealtionship.append(relationshipDropDrown);
 
                 var removeButton = $("<input/>").attr("type", "button")
-                    .attr("value", "X").attr("class", "btn btn-danger bi bi-trash") 
+                    .attr("value", "X").attr("class", "btn btn-danger bi bi-trash")
                     .attr("onclick", "RemoveFamily(this)");
 
-               // var lineBreak = $("<br/>");
+                var lineBreak = $("<br/>");
                // var clearFix = $("<div/>").attr("class", "clearfix");
 
                 divRemoveButton.append(removeButton);
