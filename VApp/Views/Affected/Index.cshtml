@@ -94,7 +94,7 @@
                             <br />
                             @Html.DropDownListFor(m => m.AffectedFamilyModels[0].RelationshipId, new SelectList(Model.RelationshipTypes, "Id", "TypeName"), new { @class = "p-1 form-control" })
                         </div>
-                        <div class="form-group col-2 d-flex justify-content-between align-items-end">
+                        <div class="form-group col-2 d-flex justify-content-between align-items-end" style="height: 70px;">
 
                             <button type="button" id="remove" class="btn btn-danger" onclick="RemoveFamily(this)">
                                 <i class='bi bi-trash'></i>
@@ -126,13 +126,16 @@
 
 
             $("#addMore").click(function () {
+
                 var divFormGroup = $("<div/>").attr("class", "form-group row");
                 var divMemberName = $("<div/>").attr("class", "form-group col-3");
-                var divIsRecovered = $("<div/>").attr("class", "form-check form-check-inline mr-0 col-2");
+                var divIsRecovered = $("<div/>").attr("class", "form-check col-2");
                 var divDuration = $("<div/>").attr("class", "form-group col-3");
                 var divRealtionship = $("<div/>").attr("class", "form-group col-2");
                 var divRemoveButton = $("<div/>").attr("class", "form-group col-2");
-                var lineBreak = $("<br/>");
+                var divIsRecoveredYes = $("<div/>").attr("class", "form-check form-check-inline mt-2");
+                var divIsRecoveredNo = $("<div/>").attr("class", "form-check form-check-inline");
+                //var lineBreak = $("<br/>");
                 var value = "";
 
 
@@ -144,20 +147,23 @@
 
 
                 divMemberName.append(memberName);
-                divMemberName.append(lineBreak);
+               // divMemberName.append(lineBreak);
                 divMemberName.append(spanValidation);
 
+                divIsRecovered.append(divIsRecoveredYes);
+                divIsRecovered.append(divIsRecoveredNo);
 
-                var isRecoveredYes = $("<input>").attr("type", "radio").attr("class","form-check-input ml-4")
+                var isRecoveredYes = $("<input>").attr("type", "radio").attr("class","form-check-input")
                     .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
-                var labelYes = $("<label>Yes</label>").attr("class", "form-check-label form-check-inline");
-                var labelNo = $("<label> No</label>").attr("class", "form-check-label form-check-inline");;
-                var isRecoveredNo = $("<input/>").attr("type", "radio").attr("checked", "true").attr("class", "form-check-input")
-                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed").attr("class", "mx-3 ml-3");
-                divIsRecovered.append(isRecoveredYes);
-                divIsRecovered.append(labelYes);
-                divIsRecovered.append(isRecoveredNo);
-                divIsRecovered.append(labelNo);
+                var labelYes = $("<label>Yes</label>").attr("class", "form-check-label");
+                var labelNo = $("<label> No</label>").attr("class", "form-check-label");;
+                var isRecoveredNo = $("<input/>").attr("type", "radio").attr("checked", "true").attr("class", "form-check-input ml-1")
+                    .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
+
+                divIsRecoveredYes.append(isRecoveredYes);
+                divIsRecoveredYes.append(labelYes);
+                divIsRecoveredNo.append(isRecoveredNo);
+                divIsRecoveredNo.append(labelNo);
 
 
                 var recoveryDuration = $("<input/>").attr("type", "number").attr("class", "form-control")
@@ -205,11 +211,11 @@
                 divFormGroup.append(divDuration);
                 divFormGroup.append(divRealtionship);
                 divFormGroup.append(divRemoveButton);
-                divFormGroup.append(clearFix);
 
 
 
-                $("#FamilyDiv").append(divFormGroup).append(lineBreak);
+
+                $("#FamilyDiv").append(divFormGroup);
                 i++;
             });
         });
