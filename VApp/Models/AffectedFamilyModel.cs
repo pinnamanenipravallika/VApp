@@ -6,7 +6,7 @@ namespace VApp.Models
     {
         public int EmpId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter family member name")]
         public string MemberName { get; set; }
         public bool IsRecoveryed { get; set; }
         public int? RecoveryDuration { get; set; }

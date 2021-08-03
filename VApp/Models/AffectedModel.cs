@@ -7,7 +7,7 @@ namespace VApp.Models
     {
         public int EmpId { get; set; }
         public bool IsRecoveryed { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter recovery duration")]
         public int? RecoveryDuration { get; set; }
         public bool IsFamilyAffected { get; set; }
         public List<AffectedFamilyModel> AffectedFamilyModels { get; set; }
