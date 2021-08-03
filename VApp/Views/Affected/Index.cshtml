@@ -25,8 +25,10 @@
                     <input asp-for="IsRecoveryed" type="radio" value="false" /> No
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Recovery Duration: </label>
-                    <input asp-for="RecoveryDuration" type="text" required />
+                    <label class="control-label">Recovery Duration:(in Days)</label>
+                    <input asp-for="RecoveryDuration" type="number" required />
+                    <br />
+                    <span asp-validation-for="RecoveryDuration" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Is Family Affected : </label>
@@ -35,10 +37,13 @@
                 </div>
                 <div id="FamilyDiv">
                     <div class="form-group" id="family">
+                        <h4>Family Details:</h4>
                         <div class="float-left mt-3 mx-3">
                             <label>Family Member Name:</label>
                             <br />
                             <input asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
+                            <br />
+                            <span asp-validation-for="AffectedFamilyModels[0].MemberName" class="text-danger"></span>
                         </div>
                         <div class="float-left mt-3 mx-3">
                             <label>Is Recoverded : </label>
@@ -47,9 +52,9 @@
                             <input class="mx-2" asp-for="AffectedFamilyModels[0].IsRecoveryed" type="radio" value="false" checked /> No
                         </div>
                         <div class="float-left mt-3 mx-3">
-                            <label>Recovery Duration: </label>
+                            <label>Recovery Duration:(in Days)</label>
                             <br />
-                            <input asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required />
+                            <input asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" value=0 required />
                         </div>
                         <div class="float-left mt-3 mx-3">
                             <label>Relationship : </label>
@@ -85,12 +90,18 @@
                 var divDuration = $("<div/>").attr("class", "float-left mt-3 mx-3");
                 var divRealtionship = $("<div/>").attr("class", "float-left mt-3 mx-3");
                 var divRemoveButton = $("<div/>").attr("class", "float-left mt-3 mx-3");
+                var lineBreak = $("<br/>");
                 var value = "";
 
-                var memberName = $("<input/>").attr("type", "textbox")
+                var memberName = $("<input/>").attr("type", "text")
                     .attr("name", "AffectedFamilyModels[" + i + "].MemberName")
-                    .attr("required", "");
+                    .attr("id", "AffectedFamilyModels_[" + i + "]__MemberName")
+                    .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
+                var spanValidation = $("<span/>").attr("data-valmsg-for", "AffectedFamilyModels[" + i + "].MemberName").attr("data-valmsg-replace", true).attr("class", "text-danger field-validation-error");
+
                 divMemberName.append(memberName);
+                divMemberName.append(lineBreak);
+                divMemberName.append(spanValidation);
 
                 var isRecoveredYes = $("<input>").attr("type", "radio")
                     .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
@@ -105,7 +116,7 @@
 
                 var recoveryDuration = $("<input/>").attr("type", "number")
                     .attr("name", "AffectedFamilyModels[" + i + "].RecoveryDuration")
-                    .attr("required", "");
+                    .attr("required", "").attr("value", 0);
                 divDuration.append(recoveryDuration);
 
                 var relationshipDropDrown = $("<select/>").attr("class", "p-1")
@@ -129,7 +140,6 @@
                     .attr("value", "X").attr("class", "btn btn-danger")
                     .attr("onclick", "RemoveFamily(this)");
 
-                var lineBreak = $("<br/>");
                 var clearFix = $("<div/>").attr("class", "clearfix");
 
                 divRemoveButton.append(removeButton);
