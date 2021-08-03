@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using VApp.Entities;
 using VApp.Models;
 
+
 namespace VApp.Controllers
 {
     public class AdminController : Controller
@@ -108,5 +109,21 @@ namespace VApp.Controllers
 
         }
 
+
+        [HttpPost]
+        public IActionResult Update(AdminModel model)
+        {
+            var empData = _db.Employees.FirstOrDefault(e => e.Id == model.EmpDataListModel[0].Id);
+
+            empData.FirstName = model.EmpDataListModel[0].FirstName;
+            empData.LastName = model.EmpDataListModel[0].LastName;
+            empData.Email = model.EmpDataListModel[0].Email;
+            empData.Mobile = model.EmpDataListModel[0].Mobile;
+            empData.Address = model.EmpDataListModel[0].Address;
+
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }
+
