@@ -13,6 +13,7 @@ namespace VApp.Models
         public string Mobile { get; set; }
         public string Address { get; set; }
         public DateTime JoiningDate { get; set; }
+        public GetAllCountModel GetAllCountModel { get; set; }
 
         public List<EmployeeVaccinationDataModel> EmpVaccinationData { get; set; }
 

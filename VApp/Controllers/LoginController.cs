@@ -148,8 +148,48 @@ namespace VApp.Controllers
 
             }
             empDashboard.EmpVaccinationData = details;
+            empDashboard.GetAllCountModel = GetAllCount();
 
             return View(empDashboard);
+        }
+
+        private GetAllCountModel GetAllCount()
+        {
+            var employeeCount = _db.Employees.Count();
+            var vaccinationDetails = _db.VaccinationDetails.AsQueryable();
+            var notVaccinatedCount = employeeCount - vaccinationDetails.Count();
+            var covaxinDose1Count = vaccinationDetails.Where(vd =>
+                    vd.DoseTypeId == 1 && vd.VccineNameId == 1).Count();
+
+            var covaxinDose2Count = vaccinationDetails.Where(vd =>
+                    vd.DoseTypeId == 2 && vd.VccineNameId == 1).Count();
+
+            var covisheildDose1Count = vaccinationDetails.Where(vd =>
+                    vd.DoseTypeId == 1 && vd.VccineNameId == 2).Count();
+
+            var covisheildDose2Count = vaccinationDetails.Where(vd =>
+                    vd.DoseTypeId == 2 && vd.VccineNameId == 2).Count();
+
+            var sputnikldDose1Count = vaccinationDetails.Where(vd =>
+                    vd.DoseTypeId == 1 && vd.VccineNameId == 3).Count();
+            var sputnikldDose2Count = vaccinationDetails.Where(vd =>
+                    vd.DoseTypeId == 2 && vd.VccineNameId == 3).Count();
+            var firstDoseVaccinationPercentage = (covaxinDose1Count + covisheildDose1Count + sputnikldDose1Count) / employeeCount;
+            var secondDoseVaccinationPercentage = (covaxinDose2Count + covisheildDose2Count + sputnikldDose1Count) / employeeCount;
+            var notYetVaccinatedPercentage = notVaccinatedCount / employeeCount;
+
+            return new GetAllCountModel()
+            {
+                TotalEmployee = employeeCount,
+                NotYetVaccinated = notVaccinatedCount,
+                CovaxinDose1Count = covaxinDose1Count,
+                CovaxinDose2Count = covaxinDose2Count,
+                CovisheildDose1Count = covisheildDose1Count,
+                CovisheildDose2Count = covisheildDose2Count,
+                SputnikDose1Count = sputnikldDose1Count,
+                SputnikDose2Count = sputnikldDose2Count,
+            };
+
         }
     }
 }

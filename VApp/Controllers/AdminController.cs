@@ -92,13 +92,11 @@ namespace VApp.Controllers
                     DoseType = item.DoseType,
                     HospitalName = item.HospitalName
                 };
-                //if (empDataList.FirstOrDefault(x => x.Code == data.Code) == null)
-                empDataList.Add(data);
+                if (empDataList.FirstOrDefault(x => x.Code == data.Code) == null)
+                    empDataList.Add(data);
             }
 
-
             model.EmpDataListModel = empDataList;
-
 
             var doseTypes = _db.DoseTypes.ToList();
             model.DoseTypes = doseTypes;
@@ -108,7 +106,6 @@ namespace VApp.Controllers
             return View(model);
 
         }
-
 
         [HttpPost]
         public IActionResult Update(AdminModel model)
