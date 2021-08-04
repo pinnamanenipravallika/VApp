@@ -46,61 +46,78 @@ namespace VApp.Controllers
         [HttpPost()]
         public IActionResult Insert(ListModel vaccineData)
         {
+            empId = HttpContext.Session.GetInt32("empId");
+            ViewBag.EmpId = empId;
+
+            roleId = HttpContext.Session.GetInt32("roleId");
+            ViewBag.IsAdmin = roleId == 2;
+
             var insertData = new VaccinationDetail();
+            var vaccinationDoseCount = _db.VaccinationDetails.Where(vd => vd.EmpId == vaccineData.EmpId).Count();
 
-
-            if (vaccineData.File != null && vaccineData.EmpId != null && vaccineData.VaccineModel.VaccineNameId != null && vaccineData.VaccineModel.DoseTypeId != null && vaccineData.VaccineModel.VaccinationDate != null && vaccineData.VaccineModel.HospitalName != null)
+            if (vaccinationDoseCount < 2)
             {
-                insertData.EmpId = vaccineData.EmpId;
-                insertData.VccineNameId = vaccineData.VaccineModel.VaccineNameId;
-                insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
-                insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;
-                insertData.HospitalName = vaccineData.VaccineModel.HospitalName;
-
-                if (vaccineData.File.Length > 0)
+                if (vaccineData.File != null && vaccineData.VaccineModel.VaccinationDate != null && vaccineData.VaccineModel.HospitalName != null)
                 {
-                    //Getting FileName
-                    var fileName = Path.GetFileName(vaccineData.File.FileName);
+                    insertData.EmpId = vaccineData.EmpId;
+                    insertData.VccineNameId = vaccineData.VaccineModel.VaccineNameId;
+                    insertData.DoseTypeId = vaccineData.VaccineModel.DoseTypeId;
+                    insertData.VaccinationDate = vaccineData.VaccineModel.VaccinationDate;
+                    insertData.HospitalName = vaccineData.VaccineModel.HospitalName;
 
-                    //Assigning Unique Filename (Guid)
-                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                    //Getting file Extension
-                    var fileExtension = Path.GetExtension(fileName);
-
-                    if (fileExtension == ".pdf")
+                    if (vaccineData.File.Length > 0)
                     {
-                        // concatenating  FileName + FileExtension
-                        var newFileName = String.Concat(myUniqueFileName, fileExtension);
+                        //Getting FileName
+                        var fileName = Path.GetFileName(vaccineData.File.FileName);
 
-                        insertData.CertificatePath = newFileName;
+                        //Assigning Unique Filename (Guid)
+                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
 
-                        // Combines two strings into a path.
-                        var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")).Root + $@"{newFileName}";
+                        //Getting file Extension
+                        var fileExtension = Path.GetExtension(fileName);
 
-                        using (FileStream fs = System.IO.File.Create(filepath))
+                        if (fileExtension == ".pdf")
                         {
-                            vaccineData.File.CopyTo(fs);
-                            fs.Flush();
+                            // concatenating  FileName + FileExtension
+                            var newFileName = string.Concat(myUniqueFileName, fileExtension);
+
+                            var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+                            if (!Directory.Exists(fullPath))
+                            {
+                                Directory.CreateDirectory(fullPath);
+                            }
+                            // Combine path + fileName
+                            var fileNamePath = new PhysicalFileProvider(fullPath).Root + $@"{newFileName}";
+
+                            using (FileStream fs = System.IO.File.Create(fileNamePath))
+                            {
+                                vaccineData.File.CopyTo(fs);
+                                fs.Flush();
+                            }
+
+                            insertData.CertificatePath = newFileName;
+
+                            _db.VaccinationDetails.Add(insertData);
+                            _db.SaveChanges();
+
+                            if (ViewBag.IsAdmin)
+                            {
+                                return RedirectToAction("AdminDashboard", "Login");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Dashboard", "Login");
+                            }
                         }
-
-                        _db.VaccinationDetails.Add(insertData);
-                        _db.SaveChanges();
-                        return RedirectToAction("Dashboard", "Login");
-
                     }
-
                 }
-
-            }
-            else
-            {
-                ViewData["Message"] = "Please Fill all details";
-
+                else
+                {
+                    ViewData["Message"] = "Please Fill all details";
+                }
             }
 
-
-            return RedirectToAction("Index", "vaccine");
+            return RedirectToAction("Index", "Vaccine");
         }
     }
 }
