@@ -37,7 +37,7 @@
                 <div class="form-group row mt-3">
                     <label class="control-label col-2">Recovery Duration: </label>
                     <div class="col-3">
-                        <input class="form-control" asp-for="RecoveryDuration" type="text" required />
+                        <input class="form-control" asp-for="RecoveryDuration" type="number" required />
                         <span asp-validation-for="RecoveryDuration" class="text-danger"></span>
                     </div>
 
@@ -62,7 +62,7 @@
                         <div class="form-group col-3">
                             <label class="form-label">Family Member Name:</label>
                             <br />
-                            <input class="form-control" asp-for="AffectedFamilyModels[0].MemberName" type="text" required />
+                            <input class="form-control" asp-for="AffectedFamilyModels[0].MemberName" type="text" placeholder="Enter family member name" required />
                             <span asp-validation-for="AffectedFamilyModels[0].MemberName" class="text-danger"></span>
                         </div>
 
@@ -85,7 +85,7 @@
                         <div class="form-group col-3">
                             <label class="form-label">Recovery Duration: </label>
                             <br />
-                            <input class="form-control" asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required />
+                            <input class="form-control" asp-for="AffectedFamilyModels[0].RecoveryDuration" type="number" required value="0" />
 
                         </div>
 
@@ -138,22 +138,22 @@
                 //var lineBreak = $("<br/>");
                 var value = "";
 
-
                 var memberName = $("<input/>").attr("type", "text").attr("class", "form-control")
                     .attr("name", "AffectedFamilyModels[" + i + "].MemberName")
                     .attr("id", "AffectedFamilyModels_[" + i + "]__MemberName")
+                    .attr("value", value).attr("placeholder", "Enter family member name")
                     .attr("required", true).attr("data-val", true).attr("data-val-required", "Please enter family member name");
                 var spanValidation = $("<span/>").attr("data-valmsg-for", "AffectedFamilyModels[" + i + "].MemberName").attr("data-valmsg-replace", true).attr("class", "text-danger field-validation-error");
 
 
                 divMemberName.append(memberName);
-               // divMemberName.append(lineBreak);
+                // divMemberName.append(lineBreak);
                 divMemberName.append(spanValidation);
 
                 divIsRecovered.append(divIsRecoveredYes);
                 divIsRecovered.append(divIsRecoveredNo);
 
-                var isRecoveredYes = $("<input>").attr("type", "radio").attr("class","form-check-input")
+                var isRecoveredYes = $("<input>").attr("type", "radio").attr("class", "form-check-input")
                     .attr("name", "AffectedFamilyModels[" + i + "].IsRecoveryed");
                 var labelYes = $("<label>Yes</label>").attr("class", "form-check-label");
                 var labelNo = $("<label> No</label>").attr("class", "form-check-label");;
@@ -194,16 +194,9 @@
                 var removeButton = $("<button/>").attr("type", "button")
                     .attr("class", "btn btn-danger")
                     .attr("onclick", "RemoveFamily(this)");
-
                 var trashIcon = $("<i/>").attr("class", "bi bi-trash");
-
                 removeButton.append(trashIcon);
-
-                var clearFix = $("<div/>").attr("class", "clearfix");
-
-
                 divRemoveButton.append(removeButton);
-
 
 
                 divFormGroup.append(divMemberName);
@@ -213,17 +206,17 @@
                 divFormGroup.append(divRemoveButton);
 
 
-
-
                 $("#FamilyDiv").append(divFormGroup);
                 i++;
             });
         });
+
         function RemoveFamily(button) {
             $(button).parent().parent().children().children("input:text").attr("value", "no-data");
             $(button).parent().parent().children().children('input[type="number"]').attr("value", "0");
             $(button).parent().parent().hide();
         }
+
     </script>
 }
 
