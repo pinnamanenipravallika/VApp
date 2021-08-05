@@ -44,5 +44,22 @@ namespace VApp.Controllers
             }
             return RedirectToAction("Index", "Login");
         }
+
+
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(string username, string newPassword, string confirmPassword)
+        {
+            var user = _db.Employees.FirstOrDefault(e => e.Code == username || e.Email == username);
+            if (user != null && newPassword == confirmPassword)
+            {
+                user.Password = newPassword;
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
