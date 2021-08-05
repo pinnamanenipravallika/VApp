@@ -102,11 +102,11 @@ namespace VApp.Controllers
 
                             if (ViewBag.IsAdmin)
                             {
-                                return RedirectToAction("AdminDashboard", "Login");
+                                return RedirectToAction("AdminDashboard", "Home");
                             }
                             else
                             {
-                                return RedirectToAction("Dashboard", "Login");
+                                return RedirectToAction("Dashboard", "Home");
                             }
                         }
                     }

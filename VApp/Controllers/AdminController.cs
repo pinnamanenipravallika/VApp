@@ -69,9 +69,6 @@ namespace VApp.Controllers
 
             var results = searchDataList.ToList();
 
-            //var empData = searchDataList.Select(s => s.data.empData.employee).ToList();
-            //var vacineData = searchDataList.Select(s => s.data.empData.vaccinationData).ToList();
-
             var model = new AdminModel();
             model.SearchModel = searchModel;
 

@@ -5,17 +5,15 @@
     ViewData["Title"] = "Index";
 }
 
-
 <div class="container">
     <div class="row">
         <div class="col-sm-4"> </div>
         <div class="col-sm-4">
-            
-                    <h1>Login</h1>
-                
-            
+            <h1>Login</h1>
+
             <div asp-validation-summary="All"></div>
             <form class="form-horizontal" asp-action="Login">
+
                 <div class="form-group">
                     <label class="control-label">Employee Code </label>
                     <input asp-for="Code" class="form-control" type="text" required />
@@ -25,11 +23,9 @@
                     <label class="control-label">Password </label>
                     <input asp-for="Password" class="form-control" type="password" required />
                     <span asp-validation-for="Password" class="text-danger"></span>
-
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Login</button>
-
                 </div>
 
             </form>
@@ -37,34 +33,3 @@
         <div class="col-sm-4"></div>
     </div>
 </div>
-
-@*<form class="row g-3" asp-controller="Login" asp-action="Login">
-    <div class="mb-3">
-        <label for="username" class="form-label">Employee Code</label>
-        <input type="text" class="form-control" id="username" placeholder="P0112867">
-    </div>
-    <br />
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="*****">
-    </div>
-    <div class="col-12">
-        <button class="btn btn-primary" type="submit">Login</button>
-    </div>
-</form>*@
-@*@using (Html.BeginForm("Login", "Login", FormMethod.Post))
-{
-
-<div class="mb-3">
-    <label for="username" class="form-label">Employee Code</label>
-    @Html.TextBoxFor(m => m.Code)
-</div>
-    <br />
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        @Html.TextBoxFor(m => m.Password)
-    </div>
-    <div class="col-12">
-        <button class="btn btn-primary" type="submit">Login</button>
-    </div>
-}*@
