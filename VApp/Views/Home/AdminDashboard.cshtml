@@ -89,7 +89,7 @@
                                         <td class="h5">Covaxin</td>
                                         <td>@Model.GetAllCountModel.CovaxinDose1Count</td>
                                         <td>@Model.GetAllCountModel.CovaxinDose2Count</td>
-                                        <td rowspan="3"></td>
+                                        <td rowspan="4" class="align-middle">@Model.GetAllCountModel.NotYetVaccinated</td>
                                         <td>@Model.GetAllCountModel.CovaxinTotal</td>
                                     </tr>
                                     <tr>
@@ -109,7 +109,7 @@
                                     <tr>
                                         <td class="h5">Not Yet Vaccinated</td>
                                         <td colspan="2"></td>
-                                        <td>@Model.GetAllCountModel.NotYetVaccinated</td>
+                                        @*<td>@Model.GetAllCountModel.NotYetVaccinated</td>*@
                                         <td>@Model.GetAllCountModel.NotYetVaccinated</td>
                                     </tr>
 
