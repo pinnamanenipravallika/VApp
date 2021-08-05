@@ -75,7 +75,7 @@
                                 <h4>First Dose Vaccination: @Model.GetAllCountModel.FirstDoseVaccinationPercentage %</h4>
                                 <h4>Second Dose Vaccination: @Model.GetAllCountModel.SecondDoseVaccinationPercentage %</h4>
                                 <h4>Not Yet Vaccinated: @Model.GetAllCountModel.NotYetVaccinatedPercentage %</h4>
-                                <table border="1">
+                                <table border="1" class="text-center">
                                     <tr>
                                         <th>Vaccine Type</th>
                                         <th>Dose 1</th>
@@ -87,30 +87,30 @@
                                         <td class="h5">Covaxin</td>
                                         <td>@Model.GetAllCountModel.CovaxinDose1Count</td>
                                         <td>@Model.GetAllCountModel.CovaxinDose2Count</td>
-                                        <td></td>
+                                        <td rowspan="3"></td>
                                         <td>@Model.GetAllCountModel.CovaxinTotal</td>
                                     </tr>
                                     <tr>
                                         <td class="h5">Covisheild</td>
                                         <td>@Model.GetAllCountModel.CovisheildDose1Count</td>
                                         <td>@Model.GetAllCountModel.CovisheildDose2Count</td>
-                                        <td></td>
+
                                         <td>@Model.GetAllCountModel.CovisheildTotal</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="h5">Not Yet Vaccinated</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>@Model.GetAllCountModel.NotYetVaccinated</td>
-                                        <td>@Model.GetAllCountModel.NotYetVaccinated</td>
                                     </tr>
                                     <tr>
                                         <td class="h5">Sputnik</td>
                                         <td>@Model.GetAllCountModel.SputnikDose1Count</td>
                                         <td>@Model.GetAllCountModel.SputnikDose2Count</td>
-                                        <td></td>
+
                                         <td>@Model.GetAllCountModel.SputnikTotal</td>
                                     </tr>
+                                    <tr>
+                                        <td class="h5">Not Yet Vaccinated</td>
+                                        <td colspan="2"></td>
+                                        <td>@Model.GetAllCountModel.NotYetVaccinated</td>
+                                        <td>@Model.GetAllCountModel.NotYetVaccinated</td>
+                                    </tr>
+
                                     <tr>
                                         <td class="h5">Grand Total</td>
                                         <td>@Model.GetAllCountModel.FisrtDoseTotal</td>

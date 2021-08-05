@@ -43,10 +43,11 @@ namespace VApp.Controllers
             if (!string.IsNullOrEmpty(filter))
             {
                 searchDataList = searchDataList.Where(x =>
-                    x.FirstName == filter.Trim() ||
-                    x.Email == filter.Trim() ||
-                    x.Mobile == filter.Trim() ||
-                    x.Code == filter.Trim());
+                    x.FirstName.Contains(filter.Trim()) ||
+                    x.LastName.Contains(filter.Trim()) ||
+                    x.Email.StartsWith(filter.Trim()) ||
+                    x.Mobile.StartsWith(filter.Trim()) ||
+                    x.Code.StartsWith(filter.Trim()));
             }
 
             if (searchModel.FromDate != null && searchModel.FromDate != DateTime.MinValue &&
@@ -56,12 +57,12 @@ namespace VApp.Controllers
                     DateTime.Parse(e.JoiningDate) >= searchModel.FromDate &&
                     DateTime.Parse(e.JoiningDate) <= searchModel.ToDate);
             }
-            if (searchModel.VaccineName != "Select" && searchModel.VaccineName != null)
+            if (searchModel.VaccineName != "0" && searchModel.VaccineName != null)
             {
                 searchDataList = searchDataList.Where(x => x.VccineName == searchModel.VaccineName);
             }
 
-            if (searchModel.DoseType != 0 && searchModel.VaccineName != null)
+            if (searchModel.DoseType != 0)
             {
                 searchDataList = searchDataList.Where(x => x.DoseType == searchModel.DoseType);
             }
@@ -74,10 +75,11 @@ namespace VApp.Controllers
             var model = new AdminModel();
             model.SearchModel = searchModel;
 
-            List<SearchDataModel> empDataList = new List<SearchDataModel>();
+            var empDataList = new List<EmployeeDataModel>();
+            var empVaccineDataList = new List<EmployeeVaccinationDataModel>();
             foreach (var item in results)
             {
-                var data = new SearchDataModel()
+                var empData = new EmployeeDataModel()
                 {
                     Id = item.Id,
                     Code = item.Code,
@@ -86,17 +88,25 @@ namespace VApp.Controllers
                     Address = item.Address,
                     Mobile = item.Mobile,
                     Email = item.Email,
-                    JoiningDate = item.JoiningDate,
+                    JoiningDate = Convert.ToDateTime(item.JoiningDate)
+                };
+
+                if (empDataList.FirstOrDefault(x => x.Code == empData.Code) == null)
+                    empDataList.Add(empData);
+
+                var vaccineData = new EmployeeVaccinationDataModel()
+                {
+                    EmpId = item.Id,
                     VccineName = item.VccineName,
-                    VaccinationDate = item.VaccinationDate,
+                    VaccinationDate = Convert.ToDateTime(item.VaccinationDate),
                     DoseType = item.DoseType,
                     HospitalName = item.HospitalName
                 };
-                if (empDataList.FirstOrDefault(x => x.Code == data.Code) == null)
-                    empDataList.Add(data);
+                empVaccineDataList.Add(vaccineData);
             }
 
             model.EmpDataListModel = empDataList;
+            model.EmpVaccinationDataListModel = empVaccineDataList;
 
             var doseTypes = _db.DoseTypes.ToList();
             model.DoseTypes = doseTypes;

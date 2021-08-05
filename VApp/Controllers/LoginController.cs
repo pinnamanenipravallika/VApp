@@ -54,7 +54,7 @@ namespace VApp.Controllers
 
             var empDashboard = new EmployeeDataModel();
 
-            empDashboard.ID = getEmployeeDetails.Id;
+            empDashboard.Id = getEmployeeDetails.Id;
             empDashboard.Code = getEmployeeDetails.Code;
             empDashboard.FirstName = getEmployeeDetails.FirstName;
             empDashboard.LastName = getEmployeeDetails.LastName;
@@ -108,7 +108,7 @@ namespace VApp.Controllers
 
             var empDashboard = new EmployeeDataModel();
 
-            empDashboard.ID = getEmployeeDetails.Id;
+            empDashboard.Id = getEmployeeDetails.Id;
             empDashboard.Code = getEmployeeDetails.Code;
             empDashboard.FirstName = getEmployeeDetails.FirstName;
             empDashboard.LastName = getEmployeeDetails.LastName;

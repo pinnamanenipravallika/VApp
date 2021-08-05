@@ -25,9 +25,9 @@
                 <a class="btn btn-primary" asp-action="Index"> Get All Employees </a>
             </div>
             <div class="form-group mb-3 col-2">
-                <a class="btn btn-primary text-white" id="advanceSearchBtn" onclick="DisplayAdvanceSearch()"> Close Advance Search </a>
+                <a class="btn btn-primary text-white" id="advanceSearchBtn" onclick="DisplayAdvanceSearch()"> Advance Search </a>
             </div>
-            <div id="advanceSearch" class="col-12">
+            <div id="advanceSearch" class="col-12" style="display: none">
                 <div class="form-group mb-3 col-3 float-left">
                     From Date:
                     <input type="date" class="form-control" asp-for="SearchModel.FromDate" />
@@ -38,11 +38,27 @@
                 </div>
                 <div class="form-group mb-3 col-3 float-left">
                     Dose Type:
-                    @Html.DropDownListFor(m => m.SearchModel.DoseType, new SelectList(Model.DoseTypes, "Id", "DoseType1"), new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.SearchModel.DoseType,
+                            new List<SelectListItem> {
+                                new SelectListItem { Value = "0", Text = "--Select--" }
+                            }.Concat(Model.DoseTypes.Select(x => new SelectListItem
+                                 {
+                                    Text = x.DoseType1.ToString(),
+                                    Value = x.Id.ToString()
+                            })),
+                            new { @class = "form-control" })
                 </div>
                 <div class="form-group mb-3 col-3 float-left">
                     Vaccine Name:
-                    @Html.DropDownListFor(m => m.SearchModel.VaccineName, new SelectList(Model.VaccinationNames, "Name", "Name"), new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.SearchModel.VaccineName,
+                            new List<SelectListItem> {
+                                new SelectListItem { Value = "0", Text = "--Select--" }
+                            }.Concat(Model.VaccinationNames.Select(x => new SelectListItem
+                                 {
+                                    Text = x.Name,
+                                    Value = x.Name
+                            })),
+                            new { @class = "form-control" })
                 </div>
             </div>
         </form>
@@ -50,54 +66,66 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="table-responsive">
-            <table class="table table-hover">
+        <div class="">
+            <table class="table table-responsive">
                 <thead class="thead-light">
 
                     <tr>
-                        <th width="20%" scope="col">
-                            @Html.DisplayNameFor(model => model.EmpDataListModel[0].Code)
-                        </th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Code)</th>
                         <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].FirstName)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].LastName)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Email)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Mobile)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].Address)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpDataListModel[0].JoiningDate)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].VccineName)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].VaccinationDate)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].DoseType)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].HospitalName)</th>
-                        <th scope="col">Actions</th>
-                      
+                        <th>@Html.DisplayNameFor(model => model.EmpDataListModel[0].LastName)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpDataListModel[0].Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpDataListModel[0].Mobile)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpDataListModel[0].Address)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpDataListModel[0].JoiningDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].VccineName)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].VaccinationDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].DoseType)</th>
+                        <th>@Html.DisplayNameFor(model => model.EmpVaccinationDataListModel[0].HospitalName)</th>
+                        <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.EmpDataListModel)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Code)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Mobile)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                            <td>@Html.DisplayFor(modelItem => item.JoiningDate)</td>
-                            <td>@Html.DisplayFor(modelItem => item.VccineName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.VaccinationDate)</td>
-                            <td>@Html.DisplayFor(modelItem => item.DoseType)</td>
-                            <td>@Html.DisplayFor(modelItem => item.HospitalName)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => item.Code)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => item.Mobile)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => item.Address)</td>
+                            <td scope="col">@item.JoiningDate.ToString("dd-MMM-yyyy")</td>
+
+                            @*Vaccination Details*@
+
+                            <td colspan="4">
+                                <table class="table table-borderless">
+                                    @foreach (var item1 in Model.EmpVaccinationDataListModel)
+                                    {
+                                        if (item.Id == item1.EmpId)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item1.VccineName)</td>
+                                                <td>@item1.VaccinationDate?.ToString("dd-MMM-yyyy")</td>
+                                                <td>@Html.DisplayFor(modelItem => item1.DoseType)</td>
+                                                <td>@Html.DisplayFor(modelItem => item1.HospitalName)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </td>
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#@item.Code">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
 
-
                                     <form asp-action="Delete" asp-route-id="@item.Id" method="post">
                                         <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
                                     </form>
-                                 </div>
+                                </div>
                             </td>
                         </tr>
                         <div class="modal fade" id="@item.Code" tabindex="-1" role="dialog" aria-labelledby="#@item.FirstName" aria-hidden="true">
@@ -155,6 +183,10 @@
                         </div>
 
                     }
+                    @if (Model.EmpDataListModel.Count < 1)
+                    {
+                        <tr> <td colspan="12" class="text-center">No Data Found</td></tr>
+                    }
                 </tbody>
             </table>
 
@@ -168,10 +200,10 @@
 
         function DisplayAdvanceSearch() {
             var advBtn = $("#advanceSearchBtn");
-            if (advBtn[0].innerText == "Close Advance Search") {
-                advBtn.text("Advance Search");
-            } else {
+            if (advBtn[0].innerText == "Advance Search") {
                 advBtn.text("Close Advance Search");
+            } else {
+                advBtn.text("Advance Search");
                 $("#SearchModel_VaccineName").val("");
                 $("#SearchModel_DoseType").val("");
                 $("#SearchModel_FromDate").val("");
@@ -179,8 +211,6 @@
             }
             $("#advanceSearch").toggle();
         }
-
-
 
     </script>
 }
