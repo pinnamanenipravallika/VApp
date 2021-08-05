@@ -13,5 +13,6 @@ namespace VApp.Models
 
         [Required]
         public int? RelationshipId { get; set; }
+        public string Relationship { get; set; }
     }
 }

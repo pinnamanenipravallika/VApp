@@ -22,7 +22,9 @@ namespace VApp.Models
         public DateTime JoiningDate { get; set; }
         public GetAllCountModel GetAllCountModel { get; set; }
 
-        public List<EmployeeVaccinationDataModel> EmpVaccinationData { get; set; }
+        public List<EmployeeVaccinationDataModel> EmpVaccinationData { get; set; } = new List<EmployeeVaccinationDataModel>();
+
+        public List<AffectedFamilyModel> AffectedFamilyModels { get; set; } = new List<AffectedFamilyModel>();
 
     }
 }

@@ -8,21 +8,24 @@
 
 
 <h5> Welcome! @Model.FirstName </h5>
-<section>
+<section class="text-primary">
     <div class="row">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Your Details</a>
+
                 <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Vaccination Details</a>
+
+                <a class="list-group-item list-group-item-action" id="list-affectedfamily-list" data-toggle="list" href="#list-affectedfamily" role="tab" aria-controls="affectedfamily">Affected Family Details</a>
 
                 <a class="list-group-item list-group-item-action" id="list-count-list" data-toggle="list" href="#list-count" role="tab" aria-controls="messages">Vaccination Status</a>
             </div>
         </div>
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent">
+
                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <div class="row">
-
                         <div class="col-3">
                             <p for="floatingCode" style="font-weight:bolder" class="bold">Employee Code:</p>
                             <p for="firstName" style="font-weight:bolder" class="bold">First Name:</p>
@@ -31,8 +34,6 @@
                             <p for="joiningdate" style="font-weight:bolder" class="bold">Joining Date:</p>
                             <p for="mobile" style="font-weight:bolder" class="bold">Mobile No:</p>
                             <p for="address" style="font-weight:bolder" class="bold">Address:</p>
-
-
                         </div>
                         <div class="col-6">
                             <p id="floatingCode"> @Model.Code</p>
@@ -45,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
 
                     <div class="row">
@@ -68,14 +70,14 @@
 
                 </div>
 
-                <div class="tab-pane fade show" id="list-count" role="tabpanel" aria-labelledby="list-count-list">
+                <div class="tab-pane fade" id="list-count" role="tabpanel" aria-labelledby="list-count-list">
                     <div class="row">
                         <div class="col-12 text-primary">
                             @{ var data = Model.GetAllCountModel.CovaxinDose2Count + Model.GetAllCountModel.CovisheildDose2Count + Model.GetAllCountModel.SputnikDose2Count;
                                 <h4>First Dose Vaccination: @Model.GetAllCountModel.FirstDoseVaccinationPercentage %</h4>
                                 <h4>Second Dose Vaccination: @Model.GetAllCountModel.SecondDoseVaccinationPercentage %</h4>
                                 <h4>Not Yet Vaccinated: @Model.GetAllCountModel.NotYetVaccinatedPercentage %</h4>
-                                <table border="1" class="text-center">
+                                <table class="table table-bordered text-primary text-center">
                                     <tr>
                                         <th>Vaccine Type</th>
                                         <th>Dose 1</th>
@@ -122,6 +124,36 @@
                             }
                         </div>
                     </div>
+                </div>
+
+                <div class="tab-pane fade" id="list-affectedfamily" role="tabpanel" aria-labelledby="list-affectedfamily-list">
+
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-bordered text-primary text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Family Member Name</th>
+                                        <th>Is Recovered</th>
+                                        <th>Recovery Duration</th>
+                                        <th>Relationship</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var family in Model.AffectedFamilyModels)
+                                    {
+                                        <tr>
+                                            <td>@family.MemberName</td>
+                                            <td>@family.IsRecoveryed</td>
+                                            <td>@family.RecoveryDuration</td>
+                                            <td>@family.Relationship.ToUpper()</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

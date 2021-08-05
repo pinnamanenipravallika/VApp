@@ -65,6 +65,7 @@ namespace VApp.Controllers
 
             }
             empDashboard.EmpVaccinationData = details;
+            empDashboard.AffectedFamilyModels = GetAffectedFamilyDetails((int)empId);
 
             return View(empDashboard);
         }
@@ -120,7 +121,7 @@ namespace VApp.Controllers
             }
             empDashboard.EmpVaccinationData = details;
             empDashboard.GetAllCountModel = GetAllCount();
-
+            empDashboard.AffectedFamilyModels = GetAffectedFamilyDetails((int)empId);
             return View(empDashboard);
         }
 
@@ -161,6 +162,35 @@ namespace VApp.Controllers
                 SputnikDose2Count = sputnikldDose2Count,
             };
 
+        }
+
+        private List<AffectedFamilyModel> GetAffectedFamilyDetails(int empId)
+        {
+            var familyAffectedList = _db.AffectedFamilyDetails.Where(f => f.EmpId == empId)
+                .Join(_db.RelationshipTypes, f => f.RelationshipId, r => r.Id, (family, relationship) => new { family, relationship }).Select(x => new AffectedFamilyModel
+                {
+                    EmpId = x.family.EmpId,
+                    MemberName = x.family.MemberName,
+                    IsRecoveryed = x.family.IsRecoveryed,
+                    RecoveryDuration = x.family.RecoveryDuration,
+                    Relationship = x.relationship.TypeName
+                }).ToList();
+
+            var familyAffectedListModel = new List<AffectedFamilyModel>();
+            foreach (var family in familyAffectedList)
+            {
+                var familyAffectedModel = new AffectedFamilyModel()
+                {
+                    EmpId = empId,
+                    MemberName = family.MemberName,
+                    IsRecoveryed = family.IsRecoveryed,
+                    RecoveryDuration = family.RecoveryDuration,
+                    Relationship = family.Relationship
+                };
+
+                familyAffectedListModel.Add(familyAffectedModel);
+            }
+            return familyAffectedListModel;
         }
     }
 }

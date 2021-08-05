@@ -7,7 +7,7 @@ namespace VApp.Models
     {
         public SearchModel SearchModel { get; set; }
         public List<EmployeeDataModel> EmpDataListModel { get; set; } = new List<EmployeeDataModel>();
-        public List<EmployeeVaccinationDataModel> EmpVaccinationDataListModel { get; set; }
+        public List<EmployeeVaccinationDataModel> EmpVaccinationDataListModel { get; set; } = new List<EmployeeVaccinationDataModel>();
 
         public List<DoseType> DoseTypes { get; set; } = new List<DoseType>();
         public List<VaccinationName> VaccinationNames { get; set; } = new List<VaccinationName>();
